@@ -10,14 +10,15 @@
 
 function value(results, name) {
   this.name = name;
-  this.qty = result.length;
   this.results = results;
   this.entropy = 0;
-  results.Keys(key) {
-    let value = result[key];
-    if(value === 0) return 0;
-    this.entropy += -(value / this.qty) * Math.log2(value/this.qty);
-  }
+  this.qty = 0;
+  this.qty = 0;
+  results.forEach(x => this.qty += x);
+  results.forEach((value) =>  {
+    if(value === 0) { return false; }
+    this.entropy -= (value/this.qty) * Math.log2(value/this.qty);
+  });
 }
 
 function feature(values, name) {
@@ -25,17 +26,17 @@ function feature(values, name) {
   this.values = values;
   this.infoEntr = getInfoEntropy(values);
 
-  function getInfoEntropy(v) {
+  function getInfoEntropy(values) {
     let pn = 0;
-    v.forEach((item) => pn += item.qty);
+    values.forEach((item) => pn += item.qty);
 
     let entr = 0;
-    v.forEach((item) => {
+    values.forEach((exodus) => {
       let resultSum = 0;
-      item.results.ForEach(x) {
+      exodus.results.forEach((x) => {
         resultSum += x;
-      }
-      entr + = (resultSum / pn) * item.entropy;
+      })
+      entr += (resultSum / pn) * exodus.entropy;
     });
 
     return entr;
@@ -48,7 +49,7 @@ function gain(s0, feature) {
 
 function getMaxInfoEntr(s0, features) {
   let maxGain = 0;
-  let i = 0;
+  let index = 0;
   features.forEach((item, i) => {
     let itemGain = gain(s0, item);
     if(maxGain < itemGain) {
@@ -57,7 +58,7 @@ function getMaxInfoEntr(s0, features) {
     }
   })
 
-  return {gain: maxGain, feature: features[i]};
+  return {gain: maxGain, feature: features[index]};
 }
 
 const pred_lt = (x, y) => x < y;
@@ -78,19 +79,43 @@ function id3(features) {
 }
 
 function decision_tree_build() {
-  let s0 = new value(4, 3).entropy;
+  let s0 = new value([4, 3], "result").entropy;
+  console.log('S0: ' + s0);
+
   let features = [
     new feature([new value([2, 2], 'yes'), new value([1, 2], 'no')], `higher in the table`),
     new feature([new value([4, 1], 'home'), new value([0, 2], 'guest')], `where game`),
     new feature([new value([2, 1], 'here'), new value([3, 1], 'are not here')], `leads`),
     new feature([new value([1, 2], 'yes'), new value([3, 1], 'no')], `rain`)
   ];
+  console.log(features);
 
-  let tree = id3();
+  let root = function(feature) {
+    this.childs = [];
+    this.feature = feature;
+  }
+
   let result = getMaxInfoEntr(s0, features);
+
+  printFeature(result);
+
+  let features2 = [
+    new feature([new value([1, 2], 'yes'), new value([2], 'no')], 'higher in the table'),
+    new feature([new value([1, 1], 'here'), new value([3], 'are not here')], `leads`),
+    new feature([new value([1, 1], 'yes'), new value([3], 'no')], 'rain'),
+  ];
+
+  let result2 = getMaxInfoEntr(result.gain, features2);
+  printFeature(result2);
+  console.log(features2);
+
+}
+function printFeature(result) {
   console.log(result.feature.name);
   printWithPreccision(result.gain);
 }
+
+decision_tree_build();
 
 function printWithPreccision(val) {
   console.log(val.toFixed(3));
