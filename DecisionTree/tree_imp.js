@@ -123,8 +123,13 @@ function getRoot(s0, features) {
 	return node;
 }
 
-function id3(features) { 
-	
+function id3(date_set) { 
+	let root_feature = getRoot(date_set)
+
+	root_feature.forEach(value => {
+		var child = getRootWhenS0(value);
+		value.addChild(child);
+	});
 }
 
 fs.readFile(PATH_TO_TRANING_SET, 'utf8', (err, jsonString) => {
