@@ -1,36 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DecisionTree.Models;
 
 namespace DecisionTree.Services
 {
-	public abstract class ID3DecisionTreeService : IDecisionService
+	public interface IDecisionTreeBuilder
 	{
-		public object GetDecision(object obj)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	interface IDataProvider
-	{
-
+		Node Build(TraningSet set);
 	}
 
 	public class DecisionTreeService : IDecisionService
 	{
-		public DecisionTreeService()
+		private Node m_RootTree;
+		public DecisionTreeService(TraningSet traningSet, IDecisionTreeBuilder builder)
 		{
+			m_RootTree = builder.Build(traningSet);
 		}
 
-		public object GetDecision(object obj)
+		public object GetDecision(Line line)
 		{
-			throw new NotImplementedException();
-		}
-
-		private void ID3Learn()
-		{
-
+			return "Answer";
 		}
 	}
 }

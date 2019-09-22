@@ -2,6 +2,6 @@
 {
 	interface IDecisionService
 	{
-		object GetDecision(object obj);
+		object GetDecision(Line obj);
 	}
 }
