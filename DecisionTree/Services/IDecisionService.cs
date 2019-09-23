@@ -1,7 +1,7 @@
 ﻿namespace DecisionTree.Services
 {
-	interface IDecisionService
+	public interface IDecisionService
 	{
-		object GetDecision(Line obj);
+		string GetDecision(Line obj);
 	}
 }

@@ -1,16 +1,9 @@
-﻿namespace DecisionTree
+﻿using System.Collections.Generic;
+
+namespace DecisionTree
 {
-	public class Line
+	public class Line : Dictionary<string, string>
     {
-        public string Temp { get; set; }
-
-		public string Wind { get; set; }
-
-        public string Outlook { get; set; }
-
-		public string Humidity { get; set; }
-
-		public string Decision { get; set; }
     }
 
     class Program

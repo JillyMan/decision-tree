@@ -1,23 +1,33 @@
 ﻿using DecisionTree.Models;
+using DecisionTree.Services.TreeBuilder;
 
 namespace DecisionTree.Services
 {
-	public interface IDecisionTreeBuilder
-	{
-		Node Build(TraningSet set);
-	}
-
 	public class DecisionTreeService : IDecisionService
 	{
-		private Node m_RootTree;
-		public DecisionTreeService(TraningSet traningSet, IDecisionTreeBuilder builder)
+		private readonly Node m_RootTree;
+
+		public DecisionTreeService(object obj, IDecisionTreeBuilder builder)
 		{
-			m_RootTree = builder.Build(traningSet);
+			m_RootTree = builder.Build(TransormToTraningSet(obj));
 		}
 
-		public object GetDecision(Line line)
+		private TraningSet TransormToTraningSet(object obj)
 		{
-			return "Answer";
+			return new TraningSet(null, null);
+		}
+
+		public string GetDecision(Line line)
+		{
+			return DFS(m_RootTree, line);
+		}
+
+		public string DFS(Node node, Line line)
+		{
+			if(node.IsSheet) { return node.Name; }
+			var key = node.Name;
+			var nextNode = node.FindNext(line[key]);
+			return DFS(nextNode, line);
 		}
 	}
 }
