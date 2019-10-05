@@ -12,7 +12,6 @@ namespace DecisionTree.Services
 
 		public DecisionTreeService(
 			DataTable learnSet, 
-			DecisionVars vars,
 			IDecisionTreeBuilder builder)
 		{
 			var input = default(int[][]);
@@ -21,17 +20,12 @@ namespace DecisionTree.Services
 			m_RootTree = builder.Build(input, output);
 		}
 
-		private DataTable TransormToTraningSet(object obj)
-		{
-			return new DataTable();
-		}
-
-		public string GetDecision(Line line)
+		public string GetDecision(Vector line)
 		{
 			return DFS(m_RootTree, line);
 		}
 
-		public string DFS(Node node, Line line)
+		private string DFS(Node node, Vector line)
 		{
 			if(node.IsSheet) { return node.Name; }
 			var key = node.Name;

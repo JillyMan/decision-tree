@@ -29,18 +29,18 @@ namespace DecisionTree.Test
 			mock.Setup(x => x.Build(It.IsAny<int[][]>(), It.IsAny<int[]>()))
 				.Returns(GetContext());
 
-			var result = new DecisionTreeService(It.IsAny<DataTable>(), It.IsAny<DecisionVars>(), mock.Object)
+			var result = new DecisionTreeService(It.IsAny<DataTable>(), It.IsAny<Variable[]>(), mock.Object)
 				.GetDecision(CreateContext(keys, values));
 
 			result.Should().BeEquivalentTo(expectedResult);
 		}
 
-		private Line CreateContext(string[] keys, string[] values)
+		private Vector CreateContext(string[] keys, string[] values)
 		{
 			if (keys.Length != values.Length)
 				throw new ArgumentException();
 
-			var line = new Line();
+			var line = new Vector();
 			for (var i = 0; i < keys.Length; ++i)
 			{
 				line[keys[i]] = values[i];

@@ -1,15 +1,24 @@
 ﻿namespace DecisionTree.Services
 {
-	public class DecisionVars
+	public enum VarKind
+	{
+		Descrete,
+		Continuous
+	}
+
+	public class Variable
 	{
 		public string Name { get; }
 
-		public int Values { get; }
+		public object Value { get; }
 
-		public DecisionVars(string name, int vals)
+		public VarKind Kind { get; }
+
+		public Variable(string name, object value, VarKind kind)
 		{
 			Name = name;
-			Values = vals;
+			Value = value;
+			Kind = kind;
 		}
 	}
 }

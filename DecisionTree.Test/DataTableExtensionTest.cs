@@ -19,7 +19,7 @@ namespace DecisionTree.Test
 		}
 
 		public DataTable GetContext()
-		{
+			{
 			var table = new DataTable();
 			table.Columns.Add("Outlook", "Temperature", "Humidity", "Numbers", "PlayTennis");
 			table.Rows.Add("Sunny", "Hot", "High",					"1", "No");

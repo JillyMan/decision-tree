@@ -12,7 +12,8 @@ namespace DecisionTree.Models
 		public string Name { get; set; }
 
 		public Node FindNext(string value) =>
-			Childs.Where(e => e.Value == value)
-			.FirstOrDefault()?.ChildNode;
+			Childs.
+				Where(e => e.Value == value).
+				FirstOrDefault()?.ChildNode;
 	}
 }

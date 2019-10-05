@@ -2,6 +2,6 @@
 {
 	public interface IDecisionService
 	{
-		string GetDecision(Line obj);
+		string GetDecision(Vector obj);
 	}
 }

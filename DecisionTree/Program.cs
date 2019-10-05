@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
+using System.Linq;
 using DecisionTree.Extensions;
 using DecisionTree.Services;
+using DecisionTree.Services.Builders;
 
 namespace DecisionTree
 {
-	public class Line : Dictionary<string, string>
-    {
-    }
 
-    class Program
+	class Program
     {
         static readonly string SourcePath = "C:\\Users\\Artsiom\\Documents\\Projects\\DecisionTree\\DecisionTree\\training_set.json";
         static readonly JsonSerializer Serializer = new JsonSerializer();
@@ -18,24 +16,36 @@ namespace DecisionTree
         {
 			var data = new DataTable("Mitchell's Tennis Example");
 
-			data.Columns.Add("Day", "Outlook", "Temperature", "Humidity", "Wind", "PlayTennis");
+			data.Columns.Add("Outlook", "Temperature", "Humidity", "Wind", "PlayTennis");
 
-			data.Rows.Add("D1", "Sunny", "Hot", "High", "Weak", "No");
-			data.Rows.Add("D2", "Sunny", "Hot", "High", "Strong", "No");
-			data.Rows.Add("D3", "Overcast", "Hot", "High", "Weak", "Yes");
-			data.Rows.Add("D4", "Rain", "Mild", "High", "Weak", "Yes");
-			data.Rows.Add("D5", "Rain", "Cool", "Normal", "Weak", "Yes");
-			data.Rows.Add("D6", "Rain", "Cool", "Normal", "Strong", "No");
-			data.Rows.Add("D7", "Overcast", "Cool", "Normal", "Strong", "Yes");
-			data.Rows.Add("D8", "Sunny", "Mild", "High", "Weak", "No");
-			data.Rows.Add("D9", "Sunny", "Cool", "Normal", "Weak", "Yes");
-			data.Rows.Add("D10", "Rain", "Mild", "Normal", "Weak", "Yes");
-			data.Rows.Add("D11", "Sunny", "Mild", "Normal", "Strong", "Yes");
-			data.Rows.Add("D12", "Overcast", "Mild", "High", "Strong", "Yes");
-			data.Rows.Add("D13", "Overcast", "Hot", "Normal", "Weak", "Yes");
-			data.Rows.Add("D14", "Rain", "Mild", "High", "Strong", "No");
-
+			data.Rows.Add("Sunny", "Hot", "High", "Weak", "No");
+			data.Rows.Add("Sunny", "Hot", "High", "Strong", "No");
+			data.Rows.Add("Overcast", "Hot", "High", "Weak", "Yes");
+			data.Rows.Add("Rain", "Mild", "High", "Weak", "Yes");
+			data.Rows.Add("Rain", "Cool", "Normal", "Weak", "Yes");
+			data.Rows.Add("Rain", "Cool", "Normal", "Strong", "No");
+			data.Rows.Add("Overcast", "Cool", "Normal", "Strong", "Yes");
+			data.Rows.Add("Sunny", "Mild", "High", "Weak", "No");
+			data.Rows.Add("Sunny", "Cool", "Normal", "Weak", "Yes");
+			data.Rows.Add( "Rain", "Mild", "Normal", "Weak", "Yes");
+			data.Rows.Add( "Sunny", "Mild", "Normal", "Strong", "Yes");
+			data.Rows.Add( "Overcast", "Mild", "High", "Strong", "Yes");
+			data.Rows.Add( "Overcast", "Hot", "Normal", "Weak", "Yes");
+			data.Rows.Add( "Rain", "Mild", "High", "Strong", "No");
 			data.Filter("Outlook", "Sunny");
+
+			var result = data.
+				AsEnumerable().
+				Select(x => x["Outlook"]).
+				Distinct().Count();
+
+			var service = new DecisionTreeService(data,
+				new ID3Builder(
+					new Variable[] 
+					{
+					}));
+
+			service.GetDecision(new Vector());
 
 			return 0;
         }

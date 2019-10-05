@@ -15,6 +15,12 @@ namespace DecisionTree.Extensions
 			}
 		}
 
+		public static void AddRange(this DataTable table, DataRow[] range)
+		{
+			Array.ForEach(range, x => table.ImportRow(x));
+			table.AcceptChanges();
+		}
+
 		public static DataTable Filter(this DataTable table, string byColumn, object value)
 		{
 			if (value == null) throw new ArgumentNullException();
@@ -27,16 +33,18 @@ namespace DecisionTree.Extensions
 			return newTable;
 		}
 
+		public static IEnumerable<DataRow> AsEnumerable(this DataTable table)
+		{
+			foreach(DataRow row in table.Rows)
+			{
+				yield return row;
+			}
+		}
+
 		private static string TransformToQueryLang(object value)
 		{
 			var str = value.ToString();
 			return value is string ? $"'{str}'" : $"{str}";
-		}
-
-		public static void AddRange(this DataTable table, DataRow[] range)
-		{
-			Array.ForEach(range, x => table.ImportRow(x));
-			table.AcceptChanges();
 		}
 	}
 }
