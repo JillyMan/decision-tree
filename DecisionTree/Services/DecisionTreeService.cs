@@ -1,5 +1,8 @@
 ﻿using DecisionTree.Models;
-using DecisionTree.Services.TreeBuilder;
+using DecisionTree.Services.Builders;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace DecisionTree.Services
 {
@@ -7,14 +10,20 @@ namespace DecisionTree.Services
 	{
 		private readonly Node m_RootTree;
 
-		public DecisionTreeService(object obj, IDecisionTreeBuilder builder)
+		public DecisionTreeService(
+			DataTable learnSet, 
+			DecisionVars vars,
+			IDecisionTreeBuilder builder)
 		{
-			m_RootTree = builder.Build(TransormToTraningSet(obj));
+			var input = default(int[][]);
+			var output = default(int[]);
+
+			m_RootTree = builder.Build(input, output);
 		}
 
-		private TraningSet TransormToTraningSet(object obj)
+		private DataTable TransormToTraningSet(object obj)
 		{
-			return new TraningSet(null, null);
+			return new DataTable();
 		}
 
 		public string GetDecision(Line line)

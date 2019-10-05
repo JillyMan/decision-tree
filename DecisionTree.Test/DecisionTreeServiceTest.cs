@@ -1,6 +1,6 @@
 ﻿using DecisionTree.Models;
 using DecisionTree.Services;
-using DecisionTree.Services.TreeBuilder;
+using DecisionTree.Services.Builders;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Xunit;
+using System.Data;
 
 namespace DecisionTree.Test
 {
@@ -25,10 +26,10 @@ namespace DecisionTree.Test
 		public void TestDecisionTree(string[] keys, string[] values, string expectedResult)
 		{
 			var mock = new Mock<IDecisionTreeBuilder>();
-			mock.Setup(x => x.Build(It.IsAny<TraningSet>()))
+			mock.Setup(x => x.Build(It.IsAny<int[][]>(), It.IsAny<int[]>()))
 				.Returns(GetContext());
 
-			var result = new DecisionTreeService(It.IsAny<TraningSet>(), mock.Object)
+			var result = new DecisionTreeService(It.IsAny<DataTable>(), It.IsAny<DecisionVars>(), mock.Object)
 				.GetDecision(CreateContext(keys, values));
 
 			result.Should().BeEquivalentTo(expectedResult);
