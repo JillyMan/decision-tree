@@ -86,15 +86,15 @@ namespace DecisionTree.Services.Converters
 		{
 			int width = columns.Count;
 			int height = rows.Length;
-			int[][] result = new int[width][];
+			int[][] result = new int[height][];
 
-			for (int i = 0; i < width; ++i)
+			for (int i = 0; i < height; ++i)
 			{
-				result[i] = new int[height];
-				var name = columns[i].ColumnName;
-				for (int j = 0; j < height; ++j)
+				result[i] = new int[width];
+				for (int j = 0; j < width; ++j)
 				{
-					var value = rows[j][i];
+					var name = columns[j].ColumnName;
+					var value = rows[i][j];
 					result[i][j] = _mapBook[name][value];
 				}
 			}
@@ -116,13 +116,22 @@ namespace DecisionTree.Services.Converters
 
 		public int[][] GetArray(params string[] vars)
 		{
-			int[][] result = new int[vars.Length][];
+			int[][] result = new int[_newColumnsPresentation.Length][];
+			for (int i = 0; i < result.Length; ++i)
+			{
+				result[i] = GetRow(i, vars);
+			}
+			return result;
+		}
+
+		private int[] GetRow(int rowId, params string[] vars)
+		{
+			int[] result = new int[vars.Length];
+
 			for (int i = 0; i < vars.Length; ++i)
 			{
-				if (!_namesIds.TryGetValue(vars[i], out var nameIndex))
-					throw new System.ArgumentException($"Argument not found {vars[i]}");
-
-				result[i] = _newColumnsPresentation[nameIndex];
+				int id = _namesIds[vars[i]];
+				result[i] = _newColumnsPresentation[rowId][id];
 			}
 
 			return result;
@@ -133,7 +142,13 @@ namespace DecisionTree.Services.Converters
 			if (!_namesIds.TryGetValue(varName, out int id))
 				throw new System.ArgumentException($"Argument not found: {varName}");
 
-			return _newColumnsPresentation[id];
+			int[] result = new int[_newColumnsPresentation.Length];
+			for (int i = 0; i < _newColumnsPresentation.Length; ++i)
+			{
+				result[i] = _newColumnsPresentation[i][id];
+			}
+
+			return result;
 		}
 
 		public int[] Translate(IDictionary<string, string> input)

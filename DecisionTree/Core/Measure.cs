@@ -1,25 +1,26 @@
-﻿using System;
-using System.Linq;
+﻿using DecisionTree.Services.Builders;
+using System;
 
 namespace DecisionTree.Core
 {
 	public static class Measure
 	{
-		public static double Entropy(int[] input, int numberOfClasses)
+		public static double CalcEntropy(int[] input, int numberOfClasses)
 		{
 			if(input.Length == 0) return 0d;
-			var inputFreq = new int[numberOfClasses + 1];
-			Array.ForEach(input, x => inputFreq[x]++);
-			return CalcEntr(inputFreq, input.Length);
+			var inputFreq = input.GetFrequency(numberOfClasses);
+			return Entropy(inputFreq, input.Length);
 		}
 
-		private static double CalcEntr(int[] frequency, int qty)
+		public static double Entropy(int[] frequency, int qty)
 		{
+			if (qty == 0) return 0d;
+
 			var result = 0d;
 			for (var i = 0; i < frequency.Length; ++i)
 			{
 				var area = frequency[i] / (double)qty;
-				if (area == 0d) continue;
+				if (area == 0) continue;
 				result += -area * Log2(area);
 			}
 

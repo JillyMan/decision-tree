@@ -52,13 +52,16 @@ namespace DecisionTree
 				new DecisionVariable("Wind", 2),
 			};
 
-			var tree = new ID3Builder(vars).Learn(inputs, outputs);
+			var tree = new ID3Builder(
+				vars, 
+				new DecisionVariable("Play Tennis", 2))
+				.Learn(inputs, outputs);
 
 			var sInput = new Dictionary<string, string>()
 			{
 				{ "Outlook", "Sunny"},
 				{ "Temperature", "Hot"},
-				{ "Humidity", "Strong"},
+				{ "Humidity", "High"},
 				{ "Wind", "Weak"},
 			};
 

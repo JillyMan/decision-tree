@@ -2,17 +2,20 @@
 {
 	public class DecisionTree
 	{
-		public int NumberOfClasses { get; }
+		public Node Root { get; set; }
 
 		public int NumerOfInputs => Attributes.Length;
 
-		public DecisionVariable[] Attributes { get; }
-	
-		public Node Root { get; set; }
+		public int NumberOfClasses => SolveAttribute.RangeLength;
 
-		public DecisionTree(DecisionVariable[] attributes)
+		public DecisionVariable[] Attributes { get; }
+
+		public DecisionVariable SolveAttribute { get; }
+
+		public DecisionTree(DecisionVariable[] attributes, DecisionVariable solveAttribute)
 		{
 			Attributes = attributes;
+			SolveAttribute = solveAttribute;
 		}
 
 		public int Compute(int[] vector)
@@ -30,4 +33,3 @@
 		}
 	}
 }
-
