@@ -9,69 +9,84 @@ using System.Text;
 using FluentAssertions;
 using Xunit;
 using System.Data;
+using DecisionTree.Services.Converters;
 
 namespace DecisionTree.Test
 {
 	public class DecisionTreeServiceTest
 	{
-		[Theory, ]
-		[InlineData(
-			new string[] { "Outlook", "Wind" },
-			new string[] { "sunny", "Strong" }, 
-			"Yes")]
-		[InlineData(
-			new string[] { "Outlook", "Humidity" },
-			new string[] { "overcast", "High" },
-			"no")]
-		public void TestDecisionTree(string[] keys, string[] values, string expectedResult)
+		[Theory]
+		[InlineData(new int[] { 0, 0 }, 0)]
+		[InlineData(new int[] { 0, 1 }, 1)]
+		[InlineData(new int[] { 1, 0 }, 1)]
+		[InlineData(new int[] { 1, 1 }, 0)]
+		public void XOR_TREE_RETURN_EXPECTED_RESULT(int[] vector, int expectedResult)
 		{
 			var mock = new Mock<IDecisionTreeBuilder>();
-			mock.Setup(x => x.Build(It.IsAny<int[][]>(), It.IsAny<int[]>()))
+			mock.Setup(x => x.Learn(It.IsAny<int[][]>(), It.IsAny<int[]>()))
 				.Returns(GetContext());
 
-			var result = new DecisionTreeService(It.IsAny<DataTable>(), It.IsAny<Variable[]>(), mock.Object)
-				.GetDecision(CreateContext(keys, values));
+			var result = new DecisionTreeService(
+				It.IsAny<DataTable>(), 
+				It.IsAny<ICodebook>(),
+				mock.Object)
+				.GetDecision(vector);
 
-			result.Should().BeEquivalentTo(expectedResult);
+			result.Should().Be(expectedResult);
 		}
 
-		private Vector CreateContext(string[] keys, string[] values)
+		private Models.DecisionTree GetContext()
 		{
-			if (keys.Length != values.Length)
-				throw new ArgumentException();
-
-			var line = new Vector();
-			for (var i = 0; i < keys.Length; ++i)
+			var x1 = new Node()
 			{
-				line[keys[i]] = values[i];
-			}
-
-			return line;
-		}
-
-		private Node GetContext()
-		{
-			var root = new Node()
-			{
-				Name = "Outlook"
+				AttrIndex = 0,
 			};
 
-			var parent1 = new Node() { Name = "Wind" };
-			var parent1Sheet = new Node { Name = "Yes" };
-			parent1.Childs.Add(new Edge { ParentNode = parent1, ChildNode = parent1Sheet, Value = "Strong" });
+			var x21 = new Node()
+			{
+				AttrIndex = 1,
+				Value = 0,
+			};
 
-			var parent2 = new Node() { Name = "Humidity" };
-			var parent2Sheet = new Node { Name = "No" };
-			parent2.Childs.Add(new Edge { ParentNode = parent2, ChildNode = parent2Sheet, Value = "High" });
+			var x22 = new Node()
+			{
+				AttrIndex = 1,
+				Value = 1,
+			};
 
-			root.Childs.AddRange(
-				new List<Edge>
-				{
-					new Edge() { ParentNode = root, ChildNode = parent1, Value="sunny"},
-					new Edge() { ParentNode = root, ChildNode = parent2, Value="overcast"},
-				});
+			x1.Branches.AddRange(new List<Node> { x21, x22 });
 
-			return root;
+			var l00 = new Node()
+			{
+				Output = 0,
+				Value = 0,
+			};
+
+			var l01 = new Node()
+			{
+				Output = 1,
+				Value = 1
+			};
+
+			var l11 = new Node()
+			{
+				Output = 0,
+				Value = 1,
+			};
+
+			var l10 = new Node()
+			{
+				Output = 1,
+				Value = 0,
+			};
+	
+			x21.Branches.AddRange(new List<Node> { l01, l00 });
+			x22.Branches.AddRange(new List<Node> { l11, l10 });
+
+			return new Models.DecisionTree(null)
+			{
+				Root = x1,
+			};
 		}
 	}
 }

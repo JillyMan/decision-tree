@@ -4,6 +4,6 @@ namespace DecisionTree.Services.Builders
 {
 	public interface IDecisionTreeBuilder
 	{
-		Node Build(int[][] inputs, int[] outputs);
+		Models.DecisionTree Learn(int[][] inputs, int[] outputs);
 	}
 }

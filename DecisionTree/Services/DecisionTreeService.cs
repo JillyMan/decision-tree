@@ -1,36 +1,37 @@
-﻿using DecisionTree.Models;
+﻿using System.Data;
+using DecisionTree.Models;
 using DecisionTree.Services.Builders;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+using DecisionTree.Services.Converters;
 
 namespace DecisionTree.Services
 {
 	public class DecisionTreeService : IDecisionService
 	{
-		private readonly Node m_RootTree;
+		private Models.DecisionTree _tree;
+		private ICodebook _codebook;
+		private IDecisionTreeBuilder _treeBuilder;
 
 		public DecisionTreeService(
-			DataTable learnSet, 
+			DataTable learnSet,
+			ICodebook codebook,
 			IDecisionTreeBuilder builder)
+		{
+			_codebook = codebook;
+			_treeBuilder = builder;
+			init(learnSet);
+		}
+
+		private void init(DataTable learnSet)
 		{
 			var input = default(int[][]);
 			var output = default(int[]);
 
-			m_RootTree = builder.Build(input, output);
+			_tree = _treeBuilder.Learn(input, output);
 		}
 
-		public string GetDecision(Vector line)
+		public int GetDecision(int[] vector)
 		{
-			return DFS(m_RootTree, line);
-		}
-
-		private string DFS(Node node, Vector line)
-		{
-			if(node.IsSheet) { return node.Name; }
-			var key = node.Name;
-			var nextNode = node.FindNext(line[key]);
-			return DFS(nextNode, line);
+			return _tree.Compute(vector);
 		}
 	}
 }

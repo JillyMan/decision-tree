@@ -1,21 +1,26 @@
-﻿using System.Data;
-using System.Linq;
-using DecisionTree.Extensions;
-using DecisionTree.Services;
+﻿using DecisionTree.Extensions;
+using DecisionTree.Models;
 using DecisionTree.Services.Builders;
+using DecisionTree.Services.Converters;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace DecisionTree
 {
-
 	class Program
-    {
-        static readonly string SourcePath = "C:\\Users\\Artsiom\\Documents\\Projects\\DecisionTree\\DecisionTree\\training_set.json";
-        static readonly JsonSerializer Serializer = new JsonSerializer();
+	{
+		static readonly string SourcePath = "C:\\Users\\Artsiom\\Documents\\Projects\\DecisionTree\\DecisionTree\\training_set.json";
+		static readonly JsonSerializer Serializer = new JsonSerializer();
 
-        static int Main(string[] args)
-        {
+		static int Main(string[] args)
+		{
+			//var result = data.
+			//	AsEnumerable().
+			//	Select(x => x["Outlook"]).
+			//	Distinct().Count();
+			#region Setup data
 			var data = new DataTable("Mitchell's Tennis Example");
-
 			data.Columns.Add("Outlook", "Temperature", "Humidity", "Wind", "PlayTennis");
 
 			data.Rows.Add("Sunny", "Hot", "High", "Weak", "No");
@@ -27,33 +32,48 @@ namespace DecisionTree
 			data.Rows.Add("Overcast", "Cool", "Normal", "Strong", "Yes");
 			data.Rows.Add("Sunny", "Mild", "High", "Weak", "No");
 			data.Rows.Add("Sunny", "Cool", "Normal", "Weak", "Yes");
-			data.Rows.Add( "Rain", "Mild", "Normal", "Weak", "Yes");
-			data.Rows.Add( "Sunny", "Mild", "Normal", "Strong", "Yes");
-			data.Rows.Add( "Overcast", "Mild", "High", "Strong", "Yes");
-			data.Rows.Add( "Overcast", "Hot", "Normal", "Weak", "Yes");
-			data.Rows.Add( "Rain", "Mild", "High", "Strong", "No");
+			data.Rows.Add("Rain", "Mild", "Normal", "Weak", "Yes");
+			data.Rows.Add("Sunny", "Mild", "Normal", "Strong", "Yes");
+			data.Rows.Add("Overcast", "Mild", "High", "Strong", "Yes");
+			data.Rows.Add("Overcast", "Hot", "Normal", "Weak", "Yes");
+			data.Rows.Add("Rain", "Mild", "High", "Strong", "No");
 			data.Filter("Outlook", "Sunny");
+			#endregion
 
-			var result = data.
-				AsEnumerable().
-				Select(x => x["Outlook"]).
-				Distinct().Count();
+			var codebook = new Codebook(data);
+			int[][] inputs = codebook.GetArray("Outlook", "Temperature", "Humidity", "Wind");
+			int[] outputs = codebook.GetArray("PlayTennis");
 
-			var service = new DecisionTreeService(data,
-				new ID3Builder(
-					new Variable[] 
-					{
-					}));
+			var vars = new DecisionVariable[]
+			{
+				new DecisionVariable("Outlook", 3),
+				new DecisionVariable("Temperature", 3),
+				new DecisionVariable("Humidity", 2),
+				new DecisionVariable("Wind", 2),
+			};
 
-			service.GetDecision(new Vector());
+			var tree = new ID3Builder(vars).Learn(inputs, outputs);
+
+			var sInput = new Dictionary<string, string>()
+			{
+				{ "Outlook", "Sunny"},
+				{ "Temperature", "Hot"},
+				{ "Humidity", "Strong"},
+				{ "Wind", "Weak"},
+			};
+
+			var iInpus = codebook.Translate(sInput);
+			var computedResult = tree.Compute(iInpus);
+			var translatedResult = codebook.Translate("PlayTennis", computedResult);
+			Console.WriteLine($"Result: {translatedResult}");
 
 			return 0;
-        }
+		}
 
-        static T LoadDate<T>(string path) where T : class
-        {
-            var data = System.IO.File.ReadAllText(path);
-            return Serializer.Deserialize<T>(data);
-        }
-    }
+		static T LoadDate<T>(string path) where T : class
+		{
+			var data = System.IO.File.ReadAllText(path);
+			return Serializer.Deserialize<T>(data);
+		}
+	}
 }

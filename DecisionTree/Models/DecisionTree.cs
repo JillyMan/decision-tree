@@ -1,16 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DecisionTree.Models
+﻿namespace DecisionTree.Models
 {
 	public class DecisionTree
 	{
-		private Node Root;
+		public int NumberOfClasses { get; }
 
-		public int Compute(int[] inputs)
+		public int NumerOfInputs => Attributes.Length;
+
+		public DecisionVariable[] Attributes { get; }
+	
+		public Node Root { get; set; }
+
+		public DecisionTree(DecisionVariable[] attributes)
 		{
-			throw new NotImplementedException();
+			Attributes = attributes;
+		}
+
+		public int Compute(int[] vector)
+		{
+			return Dfs(Root, vector);
+		}
+
+		private int Dfs(Node node, int[] vector)
+		{
+			if (node.IsSheet) return node.Output.Value;
+			return Dfs(
+				node.NextNode(vector[node.AttrIndex]),
+				vector
+			);
 		}
 	}
 }
+

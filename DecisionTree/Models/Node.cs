@@ -5,15 +5,22 @@ namespace DecisionTree.Models
 {
 	public class Node
 	{
-		public List<Edge> Childs { get; } = new List<Edge>();
+		public Node Parent { get; set; }
 
-		public bool IsSheet => Childs.Count == 0;
+		public List<Node> Branches { get; } = new List<Node>();
 
-		public string Name { get; set; }
+		public bool IsSheet => Branches.Count == 0;
 
-		public Node FindNext(string value) =>
-			Childs.
-				Where(e => e.Value == value).
-				FirstOrDefault()?.ChildNode;
+		public int AttrIndex { get; set; }
+
+		public int Value { get; set; }
+
+		//todo: Nullable why???
+		public int? Output { get; set; }
+
+		public Node NextNode(int value) =>
+			Branches
+				.Where(e => e.Value == value)
+				.FirstOrDefault();
 	}
 }
