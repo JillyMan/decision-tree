@@ -11,10 +11,15 @@ namespace DecisionTree.Services.Builders
 		private int[] _numberOfRange;
 		private int _numberOfClasses;
 
+		private DecisionVariable[] _inputs;
+		private DecisionVariable _outputType;
+
 		public Models.DecisionTree Tree { get; private set; }
 
 		public ID3Builder(DecisionVariable[] inputs, DecisionVariable outputType)
 		{
+			_inputs = inputs;
+			_outputType = outputType;
 			Tree = new Models.DecisionTree(inputs, outputType);
 			init(Tree);
 		}
@@ -58,11 +63,11 @@ namespace DecisionTree.Services.Builders
 				return;
 			}
 
-			var gainScores = new double[inputs.Length];
+			var gainScores = new double[inputs[0].Length];
 
 			for(var i = 0; i < gainScores.Length; ++i)
 			{
-				gainScores[i] = CalcInfoGain(inputs[i], outputs, i, solveEntropy);
+				gainScores[i] = CalcInfoGain(inputs, outputs, i, solveEntropy);
 			}
 
 			gainScores.Max(out int maxGainAttrIndex);
@@ -75,6 +80,7 @@ namespace DecisionTree.Services.Builders
 				{
  					Value = i,
 					Parent = root,
+					Name = _inputs[maxGainAttrIndex].NameRange[i],
 					AttrIndex = maxGainAttrIndex,
 				};
 
@@ -104,7 +110,7 @@ namespace DecisionTree.Services.Builders
 					var list = new List<int>(input[j]);
 					list.RemoveAt(attrIndex);
 					ll.Add(list);
-					outs.Add(output[attrIndex]);
+					outs.Add(output[j]);
 				}
 			}
 
@@ -112,13 +118,13 @@ namespace DecisionTree.Services.Builders
 			outputSubset = outs.ToArray();
 		}
 
-		private double CalcInfoGain(int[] input, int[] outputs, int index, double solveEntropy)
+		private double CalcInfoGain(int[][] inputs, int[] outputs, int index, double solveEntropy)
 		{
-			return solveEntropy - InfoEntr(input, outputs, index);
+			return solveEntropy - InfoEntr(inputs, outputs, index);
 		}
 
 		//todo: check if len == 0
-		private double InfoEntr(int[] attrValues, int[] outputs, int index)
+		private double InfoEntr(int[][] attrValues, int[] outputs, int index)
 		{
 			double info = 0d;
 			int attrRange = _numberOfRange[index];
@@ -132,7 +138,7 @@ namespace DecisionTree.Services.Builders
 
 			for (int i = 0; i < attrValues.Length; ++i)
 			{
-				freqs[attrValues[i]][outputs[i]]++;
+				freqs[attrValues[i][index]][outputs[i]]++;
 			}
 
 			for(int i = 0; i < freqs.Length; ++i)

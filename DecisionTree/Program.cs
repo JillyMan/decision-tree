@@ -8,6 +8,21 @@ using System.Data;
 
 namespace DecisionTree
 {
+	static class DecisionTree
+	{
+		public static bool Check (this Models.DecisionTree tree, int[][] inputs, int[] outputs)
+		{
+			bool result = false;
+			for(int i = 0; i < inputs.Length; ++i)
+			{
+				var res = tree.Compute(inputs[i]);
+				result = result && (res != outputs[i]);
+			}
+
+			return result;
+		}
+	}
+
 	class Program
 	{
 		static readonly string SourcePath = "C:\\Users\\Artsiom\\Documents\\Projects\\DecisionTree\\DecisionTree\\training_set.json";
@@ -44,22 +59,27 @@ namespace DecisionTree
 			int[][] inputs = codebook.GetArray("Outlook", "Temperature", "Humidity", "Wind");
 			int[] outputs = codebook.GetArray("PlayTennis");
 
+			//need add to codebook GetVaraibleList() which investigate exists values. 
+			//but you need specify haw mush range is have variable.
+			//new DecisionVariable("Outtlook", 3);
+			// and other information find codebook.
 			var vars = new DecisionVariable[]
 			{
-				new DecisionVariable("Outlook", 3),
-				new DecisionVariable("Temperature", 3),
-				new DecisionVariable("Humidity", 2),
-				new DecisionVariable("Wind", 2),
+				new DecisionVariable("Outlook", 3, new string[] { "Sunny", "Overcast", "Rain" }),
+				new DecisionVariable("Temperature", 3, new string[] { "Hot", "Mild", "Cool" }),
+				new DecisionVariable("Humidity", 2, new string[] { "High", "Normal" }),
+				new DecisionVariable("Wind", 2, new string[] { "Weak", "Strong" }),
 			};
 
 			var tree = new ID3Builder(
 				vars, 
-				new DecisionVariable("Play Tennis", 2))
+				new DecisionVariable("Play Tennis", 2, new string[] { "No", "Yes" }))
 				.Learn(inputs, outputs);
 
+			//", "Hot", "High", "Weak"
 			var sInput = new Dictionary<string, string>()
 			{
-				{ "Outlook", "Sunny"},
+				{ "Outlook", "Overcast"},
 				{ "Temperature", "Hot"},
 				{ "Humidity", "High"},
 				{ "Wind", "Weak"},
@@ -69,6 +89,8 @@ namespace DecisionTree
 			var computedResult = tree.Compute(iInpus);
 			var translatedResult = codebook.Translate("PlayTennis", computedResult);
 			Console.WriteLine($"Result: {translatedResult}");
+
+			var isError = tree.Check(inputs, outputs);
 
 			return 0;
 		}

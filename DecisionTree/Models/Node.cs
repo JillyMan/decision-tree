@@ -18,6 +18,8 @@ namespace DecisionTree.Models
 		//todo: Nullable why???
 		public int? Output { get; set; }
 
+		public string Name { get; set; }
+
 		public Node NextNode(int value) =>
 			Branches
 				.Where(e => e.Value == value)
