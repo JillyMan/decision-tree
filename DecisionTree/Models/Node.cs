@@ -15,8 +15,7 @@ namespace DecisionTree.Models
 
 		public int Value { get; set; }
 
-		//todo: Nullable why???
-		public int? Output { get; set; }
+		public int Output { get; set; }
 
 		public string Name { get; set; }
 

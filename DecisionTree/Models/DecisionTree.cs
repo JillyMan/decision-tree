@@ -1,4 +1,6 @@
-﻿namespace DecisionTree.Models
+﻿using System.Collections.Generic;
+
+namespace DecisionTree.Models
 {
 	public class DecisionTree
 	{
@@ -20,16 +22,17 @@
 
 		public int Compute(int[] vector)
 		{
-			return Dfs(Root, vector);
+			return Bfs(Root, vector);
 		}
 
-		private int Dfs(Node node, int[] vector)
-		{
-			if (node.IsSheet) return node.Output.Value;
-			return Dfs(
-				node.NextNode(vector[node.AttrIndex]),
-				vector
-			);
-		}
-	}
+        private static int Bfs(Node node, IReadOnlyList<int> vector)
+        {
+            while (true)
+            {
+                if (node.IsSheet) 
+                    return node.Output;
+                node = node.NextNode(vector[node.AttrIndex]);
+            }
+        }
+    }
 }

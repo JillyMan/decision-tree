@@ -1,10 +1,11 @@
 ﻿using DecisionTree.Extensions;
 using DecisionTree.Models;
 using DecisionTree.Services.Builders;
-using DecisionTree.Services.Converters;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using DecisionTree.Converters;
 
 namespace DecisionTree
 {
@@ -16,7 +17,11 @@ namespace DecisionTree
 			for(int i = 0; i < inputs.Length; ++i)
 			{
 				var res = tree.Compute(inputs[i]);
-				result = result && (res != outputs[i]);
+                if (res != outputs[i])
+                {
+                    var vector = string.Join(", ",inputs.Select(x => x.ToString()));
+                    Console.WriteLine($"Crash for: {vector}");
+                }
 			}
 
 			return result;
@@ -30,11 +35,7 @@ namespace DecisionTree
 
 		static int Main(string[] args)
 		{
-			//var result = data.
-			//	AsEnumerable().
-			//	Select(x => x["Outlook"]).
-			//	Distinct().Count();
-			#region Setup data
+            #region Setup data
 			var data = new DataTable("Mitchell's Tennis Example");
 			data.Columns.Add("Outlook", "Temperature", "Humidity", "Wind", "PlayTennis");
 
@@ -63,17 +64,18 @@ namespace DecisionTree
 			//but you need specify haw mush range is have variable.
 			//new DecisionVariable("Outtlook", 3);
 			// and other information find codebook.
-			var vars = new DecisionVariable[]
+
+			var vars = new[]
 			{
-				new DecisionVariable("Outlook", 3, new string[] { "Sunny", "Overcast", "Rain" }),
-				new DecisionVariable("Temperature", 3, new string[] { "Hot", "Mild", "Cool" }),
-				new DecisionVariable("Humidity", 2, new string[] { "High", "Normal" }),
-				new DecisionVariable("Wind", 2, new string[] { "Weak", "Strong" }),
+				new DecisionVariable("Outlook", 3, new[] { "Sunny", "Overcast", "Rain" }),
+				new DecisionVariable("Temperature", 3, new[] { "Hot", "Mild", "Cool" }),
+				new DecisionVariable("Humidity", 2, new[] { "High", "Normal" }),
+				new DecisionVariable("Wind", 2, new[] { "Weak", "Strong" }),
 			};
 
 			var tree = new ID3Builder(
 				vars, 
-				new DecisionVariable("Play Tennis", 2, new string[] { "No", "Yes" }))
+				new DecisionVariable("Play Tennis", 2, new[] { "No", "Yes" }))
 				.Learn(inputs, outputs);
 
 			//", "Hot", "High", "Weak"
@@ -85,20 +87,14 @@ namespace DecisionTree
 				{ "Wind", "Weak"},
 			};
 
-			var iInpus = codebook.Translate(sInput);
-			var computedResult = tree.Compute(iInpus);
+			var testInpus = codebook.Translate(sInput);
+			var computedResult = tree.Compute(testInpus);
 			var translatedResult = codebook.Translate("PlayTennis", computedResult);
 			Console.WriteLine($"Result: {translatedResult}");
 
-			var isError = tree.Check(inputs, outputs);
+			tree.Check(inputs, outputs);
 
 			return 0;
-		}
-
-		static T LoadDate<T>(string path) where T : class
-		{
-			var data = System.IO.File.ReadAllText(path);
-			return Serializer.Deserialize<T>(data);
 		}
 	}
 }
