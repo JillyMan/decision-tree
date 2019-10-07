@@ -21,7 +21,6 @@ namespace DecisionTree.Models
 
 		public Node NextNode(int value) =>
 			Branches
-				.Where(e => e.Value == value)
-				.FirstOrDefault();
+				.FirstOrDefault(e => e.Value == value);
 	}
 }

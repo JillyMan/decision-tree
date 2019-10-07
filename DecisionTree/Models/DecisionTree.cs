@@ -27,7 +27,7 @@ namespace DecisionTree.Models
 
         private static int Bfs(Node node, IReadOnlyList<int> vector)
         {
-            while (true)
+            for(;;)
             {
                 if (node.IsSheet) 
                     return node.Output;

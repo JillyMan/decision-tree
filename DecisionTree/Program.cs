@@ -73,7 +73,7 @@ namespace DecisionTree
 				new DecisionVariable("Wind", 2, new[] { "Weak", "Strong" }),
 			};
 
-			var tree = new ID3Builder(
+			var tree = new Id3Builder(
 				vars, 
 				new DecisionVariable("Play Tennis", 2, new[] { "No", "Yes" }))
 				.Learn(inputs, outputs);
@@ -94,6 +94,7 @@ namespace DecisionTree
 
 			tree.Check(inputs, outputs);
 
+            Console.ReadKey();
 			return 0;
 		}
 	}

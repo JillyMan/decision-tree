@@ -1,6 +1,4 @@
-﻿using DecisionTree.Models;
-
-namespace DecisionTree.Services.Builders
+﻿namespace DecisionTree.Services.Builders
 {
 	public interface IDecisionTreeBuilder
 	{

@@ -8,7 +8,7 @@ namespace DecisionTree.Services
     {
         private Models.DecisionTree _tree;
         private ICodebook _codebook;
-        private IDecisionTreeBuilder _treeBuilder;
+        private readonly IDecisionTreeBuilder _treeBuilder;
 
         public DecisionTreeService(
             DataTable learnSet,
@@ -17,10 +17,10 @@ namespace DecisionTree.Services
         {
             _codebook = codebook;
             _treeBuilder = builder;
-            init(learnSet);
+            Init(learnSet);
         }
 
-        private void init(DataTable learnSet)
+        private void Init(DataTable learnSet)
         {
             var input = default(int[][]);
             var output = default(int[]);
