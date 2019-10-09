@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using MachineLearning.Core;
-using MachineLearning.Models;
 using MachineLearning.Extensions;
+using MachineLearning.Models;
 
-namespace MachineLearning.LearnAlgorithms
+namespace MachineLearning.LearnAlgorithm
 {
-    public class Id3Builder : IDecisionTreeBuilder
+    public class Id3Algorithm : IDecisionTreeBuilder
     {
         private int[] _numberOfRange;
         private int _numberOfClasses;
@@ -17,7 +17,7 @@ namespace MachineLearning.LearnAlgorithms
 
         public Models.DecisionTree Tree { get; private set; }
 
-        public Id3Builder(DecisionVariable[] inputs, DecisionVariable outputType)
+        public Id3Algorithm(DecisionVariable[] inputs, DecisionVariable outputType)
         {
             _inputs = inputs;
             _outputType = outputType;

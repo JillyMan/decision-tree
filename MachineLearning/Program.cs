@@ -1,10 +1,10 @@
 ﻿using MachineLearning.Converters;
 using MachineLearning.DataLayer;
-using MachineLearning.LearnAlgorithms;
 using MachineLearning.Models;
 using MachineLearning.Services;
 using System;
 using System.Collections.Generic;
+using MachineLearning.LearnAlgorithm;
 
 namespace MachineLearning
 {
@@ -40,7 +40,7 @@ namespace MachineLearning
                     { "Wind", new[] {  "Weak", "Strong"  } },
                     { "Play Tennis", new[] { "No", "Yes" } },
                 }),
-                new Id3Builder(inputInfo, outputInfo),
+                new Id3Algorithm(inputInfo, outputInfo),
                 new Logger.Logger()
             );
 

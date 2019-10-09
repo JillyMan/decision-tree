@@ -1,4 +1,4 @@
-﻿namespace MachineLearning.LearnAlgorithms
+﻿namespace MachineLearning.LearnAlgorithm
 {
 	public interface IDecisionTreeBuilder
 	{

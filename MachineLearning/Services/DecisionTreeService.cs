@@ -1,7 +1,7 @@
 ﻿using MachineLearning.Converters;
-using MachineLearning.LearnAlgorithms;
 using MachineLearning.Logger;
 using System.Collections.Generic;
+using MachineLearning.LearnAlgorithm;
 
 namespace MachineLearning.Services
 {
@@ -42,7 +42,7 @@ namespace MachineLearning.Services
             _inputs = _codebook.GetArray(_treeInfo.Inputs);
             _outputs = _codebook.GetArray(_treeInfo.Output);
             _tree = _treeBuilder.Learn(_inputs, _outputs);
-            var error = _tree.Check(_inputs, _outputs);
+            var error = _tree.CheckError(_inputs, _outputs);
             _logger.Info($"Tree is build, with error: {error}");
         }
 

@@ -1,12 +1,11 @@
 ﻿using FluentAssertions;
 using MachineLearning.Converters;
-using MachineLearning.LearnAlgorithms;
+using MachineLearning.LearnAlgorithm;
 using MachineLearning.Logger;
 using MachineLearning.Models;
 using MachineLearning.Services;
 using Moq;
 using System.Collections.Generic;
-using System.Xml;
 using Xunit;
 
 namespace MachineLearning.Test
@@ -46,7 +45,7 @@ namespace MachineLearning.Test
         {
             return new TreeInfo
             {
-                Inputs = new [] {"x1", "x2"},
+                Inputs = new[] { "x1", "x2" },
                 Output = "result"
             };
         }
