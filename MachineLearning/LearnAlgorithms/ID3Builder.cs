@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MachineLearning.Core;
 using MachineLearning.Models;
-using MachineLearning.Services.Builders;
+using MachineLearning.Extensions;
 
 namespace MachineLearning.LearnAlgorithms
 {

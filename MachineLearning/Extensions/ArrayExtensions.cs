@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MachineLearning.Services.Builders
+namespace MachineLearning.Extensions
 {
     public static class ArrayStatisticExtensions
     {

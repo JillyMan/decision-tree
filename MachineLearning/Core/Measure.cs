@@ -1,4 +1,4 @@
-﻿using MachineLearning.Services.Builders;
+﻿using MachineLearning.Extensions;
 using System;
 
 namespace MachineLearning.Core
