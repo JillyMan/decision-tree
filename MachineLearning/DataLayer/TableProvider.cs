@@ -8,7 +8,7 @@ namespace MachineLearning.DataLayer
         public DataTable GetTable(string path)
         {
             var data = new DataTable("Mitchell's Tennis Example");
-            data.Columns.Add("Outlook", "Temperature", "Humidity", "Wind", "PlayTennis");
+            data.Columns.Add("Outlook", "Temperature", "Humidity", "Wind", "Play Tennis");
             data.Rows.Add("Sunny", "Hot", "High", "Weak", "No");
             data.Rows.Add("Sunny", "Hot", "High", "Strong", "No");
             data.Rows.Add("Overcast", "Hot", "High", "Weak", "Yes");

@@ -31,7 +31,7 @@ namespace MachineLearning.Models
             {
                 if (node.IsLeaf) 
                     return node.Output;
-                node = node.NextNode(vector[node.AttrIndex]);
+                node = node.NextNode(vector[node.Index]);
             }
         }
     }

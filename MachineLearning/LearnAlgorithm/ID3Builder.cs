@@ -34,43 +34,58 @@ namespace MachineLearning.LearnAlgorithm
         public DecisionTree Learn(int[][] inputs, int[] outputs)
         {
             _tree.Root = new DecisionNode();
-            Split(_tree.Root, inputs, outputs);
+			var mappings = new int[_tree.Attributes.Length];
+
+			for (int i = 0; i < mappings.Length; ++i)
+			{
+				mappings[i] = i;
+			}
+			
+            Split(_tree.Root, inputs, outputs, mappings);
             return _tree;
         }
 
-        private void Split(DecisionNode root, int[][] inputs, int[] outputs)
+        private void Split(DecisionNode root, int[][] inputs, int[] outputs, int[] mappings)
         {
             var solveEntropy = Measure.CalcEntropy(outputs, _numberOfClasses);
 
             if (Math.Abs(solveEntropy) < double.Epsilon)
             {
-                if (outputs.Length <= 0) return;
+				if (outputs.Length > 0)
+				{
+					root.Output = outputs[0];
+					root.Name = _tree.SolveAttribute.NameRange[root.Index];
+				}
 
-                root.Output = outputs[0];
-                root.Name = _tree.SolveAttribute.NameRange[root.Index];
-
-                return;
+				return;
             }
 
             var gainScores = new double[inputs[0].Length];
 
             for (var i = 0; i < gainScores.Length; ++i)
             {
-                gainScores[i] = CalcInformationGain(inputs, outputs, i, solveEntropy);
+				//тоже бред насчет текущего индекса
+				var realId = mappings[i];
+                gainScores[i] = CalcInformationGain(inputs, outputs, solveEntropy, i, realId);
             }
 
             gainScores.Max(out var maxGainAttrIndex);
-            var childCount = _numberOfRange[maxGainAttrIndex];
+			var realMaxGainIndex = mappings[maxGainAttrIndex];
+			var newMappings = RecalculateMappings(mappings, maxGainAttrIndex);
 
-            var children = new DecisionNode[childCount];
-            for (var i = 0; i < children.Length; ++i)
+			var currentAttribute = _tree.Attributes[realMaxGainIndex];
+			root.Name = currentAttribute.Name;
+
+			var childCount = _numberOfRange[realMaxGainIndex];
+			var children = new DecisionNode[childCount];
+			for (var i = 0; i < children.Length; ++i)
             {
                 children[i] = new DecisionNode()
                 {
                     Index = i,
                     Parent = root,
-                    Name = _tree.Attributes[maxGainAttrIndex].NameRange[i],
-                    AttrIndex = maxGainAttrIndex,
+                    Name = currentAttribute.NameRange[i],
+                    AttrIndex = realMaxGainIndex,
                 };
 
                 SplitLearnSet(
@@ -78,22 +93,29 @@ namespace MachineLearning.LearnAlgorithm
                     maxGainAttrIndex, i,
                     out var newInput, out var newOutput);
 
-                Split(children[i], newInput, newOutput);
+                Split(children[i], newInput, newOutput, newMappings);
             }
 
             root.Branches.AddRange(children);
         }
 
-        private double CalcInformationGain(int[][] inputs, int[] outputs, int index, double solveEntropy)
+		private int[] RecalculateMappings(int[] oldMappings, int id)
+		{
+			var list = new List<int>(oldMappings);
+			list.RemoveAt(id);
+			return list.ToArray();
+		}
+
+        private double CalcInformationGain(int[][] inputs, int[] outputs, double solveEntropy, int index, int realId)
         {
-            return solveEntropy - InfoEntropy(inputs, outputs, index);
+            return solveEntropy - InfoEntropy(inputs, outputs, index, realId);
         }
 
         //todo: check if len == 0
-        private double InfoEntropy(int[][] attrValues, int[] outputs, int index)
+        private double InfoEntropy(int[][] attrValues, int[] outputs, int index, int realId)
         {
             var informationEntropy = 0d;
-            var attrRange = _numberOfRange[index];
+            var attrRange = _numberOfRange[realId];
             var outputRange = _numberOfClasses;
 
             var valueFrequency = new int[attrRange][];

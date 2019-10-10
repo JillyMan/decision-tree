@@ -17,7 +17,7 @@ namespace MachineLearning.Extensions
 
                 if (result) continue;
 
-                var vector = string.Join(", ", inputs.Select(x => x.ToString()));
+                var vector = string.Join(", ", inputs[i].Select(x => x.ToString()));
                 Console.WriteLine($"Crash for: {vector}");
             }
 
