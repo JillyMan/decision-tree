@@ -13,10 +13,10 @@ namespace MachineLearning.Test
     public class DecisionTreeServiceTest
     {
         [Theory]
-        [InlineData(new int[] { 0, 0 }, 0)]
-        [InlineData(new int[] { 0, 1 }, 1)]
-        [InlineData(new int[] { 1, 0 }, 1)]
-        [InlineData(new int[] { 1, 1 }, 0)]
+        [InlineData(new[] { 0, 0 }, 0)]
+        [InlineData(new[] { 0, 1 }, 1)]
+        [InlineData(new[] { 1, 0 }, 1)]
+        [InlineData(new[] { 1, 1 }, 0)]
         public void XOR_TREE_RETURN_EXPECTED_RESULT(int[] vector, int expectedResult)
         {
             var builderMock = new Mock<IDecisionTreeBuilder>();
@@ -60,13 +60,13 @@ namespace MachineLearning.Test
             var x21 = new DecisionNode()
             {
                 AttrIndex = 1,
-                Value = 0,
+                Index = 0,
             };
 
             var x22 = new DecisionNode()
             {
                 AttrIndex = 1,
-                Value = 1,
+                Index = 1,
             };
 
             x1.Branches.AddRange(new List<DecisionNode> { x21, x22 });
@@ -74,31 +74,31 @@ namespace MachineLearning.Test
             var l00 = new DecisionNode()
             {
                 Output = 0,
-                Value = 0,
+                Index = 0,
             };
 
             var l01 = new DecisionNode()
             {
                 Output = 1,
-                Value = 1
+                Index = 1
             };
 
             var l11 = new DecisionNode()
             {
                 Output = 0,
-                Value = 1,
+                Index = 1,
             };
 
             var l10 = new DecisionNode()
             {
                 Output = 1,
-                Value = 0,
+                Index = 0,
             };
 
             x21.Branches.AddRange(new List<DecisionNode> { l01, l00 });
             x22.Branches.AddRange(new List<DecisionNode> { l11, l10 });
 
-            return new Models.DecisionTree(It.IsAny<DecisionVariable[]>(), It.IsAny<DecisionVariable>())
+            return new DecisionTree(It.IsAny<DecisionVariable[]>(), It.IsAny<DecisionVariable>())
             {
                 Root = x1,
             };

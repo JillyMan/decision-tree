@@ -29,7 +29,7 @@ namespace MachineLearning.Models
         {
             for(;;)
             {
-                if (node.IsSheet) 
+                if (node.IsLeaf) 
                     return node.Output;
                 node = node.NextNode(vector[node.AttrIndex]);
             }

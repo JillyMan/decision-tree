@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace MachineLearning
+namespace MachineLearning.Extensions
 {
-    internal static class DecisionTree
+    internal static class DecisionTreeExtensions
     {
         public static bool CheckError(this Models.DecisionTree tree, int[][] inputs, int[] outputs)
         {

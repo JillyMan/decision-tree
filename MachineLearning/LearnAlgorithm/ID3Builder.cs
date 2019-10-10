@@ -11,38 +11,31 @@ namespace MachineLearning.LearnAlgorithm
     {
         private int[] _numberOfRange;
         private int _numberOfClasses;
-
-        private readonly DecisionVariable[] _inputs;
-        private DecisionVariable _outputType;
-
-        public Models.DecisionTree Tree { get; private set; }
+        private readonly DecisionTree _tree;
 
         public Id3Algorithm(DecisionVariable[] inputs, DecisionVariable outputType)
         {
-            _inputs = inputs;
-            _outputType = outputType;
-            Tree = new Models.DecisionTree(inputs, outputType);
-            Init(Tree);
+            _tree = new DecisionTree(inputs, outputType);
+            Init();
         }
 
-        private void Init(Models.DecisionTree tree)
+        private void Init()
         {
-            var attrLen = tree.Attributes.Length;
-            Tree = tree;
+            var attrLen = _tree.Attributes.Length;
             _numberOfRange = new int[attrLen];
-            _numberOfClasses = tree.NumberOfClasses;
+            _numberOfClasses = _tree.NumberOfClasses;
 
             for (var i = 0; i < _numberOfRange.Length; ++i)
             {
-                _numberOfRange[i] = tree.Attributes[i].RangeLength;
+                _numberOfRange[i] = _tree.Attributes[i].RangeLength;
             }
         }
 
-        public Models.DecisionTree Learn(int[][] inputs, int[] outputs)
+        public DecisionTree Learn(int[][] inputs, int[] outputs)
         {
-            Tree.Root = new DecisionNode();
-            Split(Tree.Root, inputs, outputs);
-            return Tree;
+            _tree.Root = new DecisionNode();
+            Split(_tree.Root, inputs, outputs);
+            return _tree;
         }
 
         private void Split(DecisionNode root, int[][] inputs, int[] outputs)
@@ -51,10 +44,10 @@ namespace MachineLearning.LearnAlgorithm
 
             if (Math.Abs(solveEntropy) < double.Epsilon)
             {
-                if (outputs.Length > 0)
-                {
-                    root.Output = outputs[0];
-                }
+                if (outputs.Length <= 0) return;
+
+                root.Output = outputs[0];
+                root.Name = _tree.SolveAttribute.NameRange[root.Index];
 
                 return;
             }
@@ -74,9 +67,9 @@ namespace MachineLearning.LearnAlgorithm
             {
                 children[i] = new DecisionNode()
                 {
-                    Value = i,
+                    Index = i,
                     Parent = root,
-                    Name = _inputs[maxGainAttrIndex].NameRange[i],
+                    Name = _tree.Attributes[maxGainAttrIndex].NameRange[i],
                     AttrIndex = maxGainAttrIndex,
                 };
 
@@ -114,10 +107,10 @@ namespace MachineLearning.LearnAlgorithm
                 valueFrequency[attrValues[i][index]][outputs[i]]++;
             }
 
-            foreach (var freq in valueFrequency)
+            for (var i = 0; i < valueFrequency.Length; ++i)
             {
-                var count = freq.Sum(x => x);
-                var e = Measure.Entropy(freq, count);
+                var count = valueFrequency[i].Sum(x => x);
+                var e = Measure.Entropy(valueFrequency[i], count);
                 informationEntropy += (count / (double)attrValues.Length) * e;
             }
 

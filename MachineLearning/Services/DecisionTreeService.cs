@@ -1,10 +1,12 @@
 ﻿using MachineLearning.Converters;
 using MachineLearning.Logger;
 using System.Collections.Generic;
+using MachineLearning.Extensions;
 using MachineLearning.LearnAlgorithm;
 
 namespace MachineLearning.Services
 {
+    //todo: pls refactor this class
     public class TreeInfo
     {
         public string[] Inputs { get; set; }

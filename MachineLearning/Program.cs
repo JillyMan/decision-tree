@@ -32,7 +32,7 @@ namespace MachineLearning
                     Inputs = new[] { "Outlook", "Temperature", "Humidity", "Wind" },
                     Output = "Play Tennis"
                 },
-                new Codebook(data, new Dictionary<string, string[]>()
+                new Codebook(data, new Dictionary<string, string[]>
                 {
                     { "Outlook", new[] { "Sunny", "Overcast", "Rain" } },
                     { "Temperature", new[] { "Hot", "Mild", "Cool" } },
