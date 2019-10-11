@@ -9,13 +9,11 @@ namespace MachineLearning.Converters
     {
         private int[][] _newColumnsPresentation;
 
-        private IDictionary<string, string[]> _metaInfo;
         private IDictionary<string, int> _namesIds;
         private IDictionary<string, IDictionary<string, int>> _mapBook;
 
-        public Codebook(DataTable table, IDictionary<string, string[]> metaInfo)
+        public Codebook(DataTable table)
         {
-            _metaInfo = metaInfo;
             Init(table);
         }
 

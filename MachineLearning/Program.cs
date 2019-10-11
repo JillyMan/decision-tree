@@ -13,6 +13,7 @@ namespace MachineLearning
 	{
 		/*
             todo: pls refactoring info about variables types for Id3Builder(), need remove inputInfo from id3Builder constructor args
+			todo: pls Move Project To 'MachineLearnig.DecisionTree assembly'
         */
 		private static int Main()
 		{
@@ -35,7 +36,7 @@ namespace MachineLearning
 					Inputs = inputInfo.Select(x => x.Name).ToArray(),
 					Output = outputInfo.Name
 				},
-				new Codebook(data, new Dictionary<string, string[]>(list)),
+				new Codebook(data),
 				new Id3Algorithm(inputInfo, outputInfo),
 				new Logger.Logger()
 			);
