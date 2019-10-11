@@ -4,17 +4,14 @@
 	{
 		public string Name { get; }
 
-		public int RangeLength { get; }
+		public int RangeLength => NameRange.Length;
 
 		public string[] NameRange { get; set; }
 
-		public DecisionVariable(string name, int rangeLength, string[] nameRange)
+		public DecisionVariable(string name, string[] nameRange)
 		{
-			if (nameRange.Length != rangeLength) throw new System.ArgumentException("Invalid length ranges");
-
 			Name = name;
 			NameRange = nameRange;
-			RangeLength = rangeLength;
 		}
 	}
 }

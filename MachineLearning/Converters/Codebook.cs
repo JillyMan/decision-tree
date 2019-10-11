@@ -165,7 +165,7 @@ namespace MachineLearning.Converters
             return result;
         }
 
-        // todo: need refactor (linear search).
+        // todo: do you could make better? (linear search).
         public string Translate(string name, int value)
         {
             return _mapBook[name].FirstOrDefault(x => x.Value == value).Key;

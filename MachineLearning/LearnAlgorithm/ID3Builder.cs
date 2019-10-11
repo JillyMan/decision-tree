@@ -64,7 +64,6 @@ namespace MachineLearning.LearnAlgorithm
 
             for (var i = 0; i < gainScores.Length; ++i)
             {
-				//тоже бред насчет текущего индекса
 				var realId = mappings[i];
                 gainScores[i] = CalcInformationGain(inputs, outputs, solveEntropy, i, realId);
             }

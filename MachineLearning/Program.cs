@@ -5,6 +5,7 @@ using MachineLearning.Services;
 using System;
 using System.Collections.Generic;
 using MachineLearning.LearnAlgorithm;
+using System.Linq;
 
 namespace MachineLearning
 {
@@ -15,45 +16,51 @@ namespace MachineLearning
         */
 		private static int Main()
 		{
-			var data = new JsonTableProvider().GetTable("path");
+			var csvProvider = new FromCsvTableProvider();
+			var jsonProvider = new JsonTableProvider();
 
-			var inputInfo = new[]
-			{
-				new DecisionVariable("Outlook", 3, new[] { "Sunny", "Overcast", "Rain" }),
-				new DecisionVariable("Temperature", 3, new[] { "Hot", "Mild", "Cool" }),
-				new DecisionVariable("Humidity", 2, new[] { "High", "Normal" }),
-				new DecisionVariable("Wind", 2, new[] { "Weak", "Strong" }),
-			};
-			var outputInfo = new DecisionVariable("Play Tennis", 2, new[] { "No", "Yes" });
+			var data = csvProvider.GetData(Properties.Resources.CsvLearnDataPath);
+			var metaInfo = jsonProvider.GetData(Properties.Resources.MetaInfoOfLearnSet);
+
+			var vars = ParseMetaInfo(metaInfo);
+			var inputInfo = vars.Take(vars.Length - 1).ToArray();
+			var outputInfo = vars.Last();
+
+			var list = inputInfo.Select(x => new KeyValuePair<string, string[]>(x.Name, x.NameRange)).ToList();
+			list.Add(new KeyValuePair<string, string[]>(outputInfo.Name, outputInfo.NameRange));	
 
 			var service = new DecisionTreeService(
 				new TreeInfo()
 				{
-					Inputs = new[] { "Outlook", "Temperature", "Humidity", "Wind" },
-					Output = "Play Tennis"
+					Inputs = inputInfo.Select(x => x.Name).ToArray(),
+					Output = outputInfo.Name
 				},
-				new Codebook(data, new Dictionary<string, string[]>
-				{
-					{ "Outlook", new[] { "Sunny", "Overcast", "Rain" } },
-					{ "Temperature", new[] { "Hot", "Mild", "Cool" } },
-					{ "Humidity", new[] { "High", "Normal" } },
-					{ "Wind", new[] {  "Weak", "Strong"  } },
-					{ "Play Tennis", new[] { "No", "Yes" } },
-				}),
+				new Codebook(data, new Dictionary<string, string[]>(list)),
 				new Id3Algorithm(inputInfo, outputInfo),
 				new Logger.Logger()
 			);
 
-			service.GetDecision(new Dictionary<string, string> {
-					{ "Outlook", "Overcast" },
-					{ "Temperature", "Hot" },
-					{ "Humidity", "High" },
-					{ "Wind", "Weak" },
+			//service.GetDecision(new Dictionary<string, string> {
+			//		{ "Outlook", "Overcast" },
+			//		{ "Temperature", "Hot" },
+			//		{ "Humidity", "High" },
+			//		{ "Wind", "Weak" },
+			//	}
+			//);
+
+			var result = service.GetDecision(new Dictionary<string, string> {
+					{ "x1", "0" },
+					{ "x2", "1" },
 				}
 			);
 
 			Console.ReadKey();
 			return 0;
+		}
+
+		private static DecisionVariable[] ParseMetaInfo(IDictionary<string, string[]> metaInfo)
+		{
+			return metaInfo.Select(x => new DecisionVariable(x.Key, x.Value)).ToArray();
 		}
 	}
 }

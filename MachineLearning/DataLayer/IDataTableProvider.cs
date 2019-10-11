@@ -2,8 +2,8 @@
 
 namespace MachineLearning.DataLayer
 {
-    public interface IDataTableProvider
+    public interface IDataProvider<T>
     {
-        DataTable GetTable(string path);
+		T GetData(string path);
     }
 }
