@@ -33,6 +33,7 @@ namespace MachineLearning.DecisionTree.Services
         {
             _logger = logger;
             _codebook = codebook;
+			_treeInfo = treeInfo;
             _treeBuilder = builder;
 
             Init();
