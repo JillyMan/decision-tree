@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MachineLearning.Core\MachineLearning.Core.csproj" />
     <ProjectReference Include="..\MachineLearning.DataLayer\MachineLearning.DataLayer.csproj" />
   </ItemGroup>
 

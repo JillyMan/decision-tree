@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.DecisionTre
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.Test", "MachineLearning.Test\MachineLearning.Test.csproj", "{9FDC143A-E87B-497C-B03F-614845EED6A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning.BayesianNetwork", "MachineLearning.BayesianNetwork\MachineLearning.BayesianNetwork.csproj", "{58B6AF3C-4C03-4390-B524-D293B94CBA07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.BayesianNetwork", "MachineLearning.BayesianNetwork\MachineLearning.BayesianNetwork.csproj", "{58B6AF3C-4C03-4390-B524-D293B94CBA07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning.DataLayer", "MachineLearning.DataLayer\MachineLearning.DataLayer.csproj", "{A5ED4B92-95BC-41BE-9400-64151BEF2491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.DataLayer", "MachineLearning.DataLayer\MachineLearning.DataLayer.csproj", "{A5ED4B92-95BC-41BE-9400-64151BEF2491}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning.Core", "MachineLearning.Core\MachineLearning.Core.csproj", "{6821CADE-DF56-4C19-A948-CC8D4F10CB61}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A5ED4B92-95BC-41BE-9400-64151BEF2491}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5ED4B92-95BC-41BE-9400-64151BEF2491}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5ED4B92-95BC-41BE-9400-64151BEF2491}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6821CADE-DF56-4C19-A948-CC8D4F10CB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6821CADE-DF56-4C19-A948-CC8D4F10CB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6821CADE-DF56-4C19-A948-CC8D4F10CB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6821CADE-DF56-4C19-A948-CC8D4F10CB61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

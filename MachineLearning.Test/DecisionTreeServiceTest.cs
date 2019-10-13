@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using MachineLearning.DecisionTree.Converters;
+using MachineLearning.Core.Converters;
 using MachineLearning.DecisionTree.LearnAlgorithm;
 using MachineLearning.DecisionTree.Logger;
 using MachineLearning.DecisionTree.Models;

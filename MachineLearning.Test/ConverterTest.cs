@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
+using MachineLearning.Core.Converters;
 using MachineLearning.DataLayer.Extensions;
-using MachineLearning.DecisionTree.Converters;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;

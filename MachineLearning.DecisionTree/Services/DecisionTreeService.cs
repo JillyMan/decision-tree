@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using MachineLearning.DecisionTree.Logger;
 using MachineLearning.DecisionTree.Extensions;
-using MachineLearning.DecisionTree.Converters;
 using MachineLearning.DecisionTree.LearnAlgorithm;
+using MachineLearning.Core.Converters;
 
 namespace MachineLearning.DecisionTree.Services
 {
@@ -32,7 +32,6 @@ namespace MachineLearning.DecisionTree.Services
             ILogger logger)
         {
             _logger = logger;
-            _treeInfo = treeInfo;
             _codebook = codebook;
             _treeBuilder = builder;
 

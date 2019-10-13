@@ -1,8 +1,8 @@
-﻿using MachineLearning.DataLayer;
-using MachineLearning.DecisionTree.Converters;
+﻿using MachineLearning.Core.Converters;
+using MachineLearning.Core.Properties;
+using MachineLearning.DataLayer;
 using MachineLearning.DecisionTree.LearnAlgorithm;
 using MachineLearning.DecisionTree.Models;
-using MachineLearning.DecisionTree.Properties;
 using MachineLearning.DecisionTree.Services;
 using System;
 using System.Collections.Generic;

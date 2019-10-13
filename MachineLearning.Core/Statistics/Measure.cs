@@ -1,7 +1,7 @@
 ﻿using System;
-using MachineLearning.DecisionTree.Extensions;
+using MachineLearning.Core.Extensions;
 
-namespace MachineLearning.DecisionTree.Core
+namespace MachineLearning.Core.Statistics
 {
     public static class Measure
     {

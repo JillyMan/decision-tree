@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MachineLearning.DecisionTree.Properties {
+namespace MachineLearning.Core.Properties {
     using System;
     
     

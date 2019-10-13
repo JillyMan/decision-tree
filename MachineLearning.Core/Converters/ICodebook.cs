@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MachineLearning.DecisionTree.Converters
+namespace MachineLearning.Core.Converters
 {
     public interface ICodebook
     {

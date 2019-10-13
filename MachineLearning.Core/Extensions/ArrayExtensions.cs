@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MachineLearning.DecisionTree.Extensions
+namespace MachineLearning.Core.Extensions
 {
     public static class ArrayStatisticExtensions
     {
