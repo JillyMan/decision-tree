@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using MachineLearning.Extensions;
+using MachineLearning.DataLayer.Extensions;
 using System.Data;
 using Xunit;
 

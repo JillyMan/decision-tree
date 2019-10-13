@@ -1,4 +1,4 @@
-﻿using MachineLearning.Core;
+﻿using MachineLearning.DecisionTree.Core;
 using System;
 using Xunit;
 

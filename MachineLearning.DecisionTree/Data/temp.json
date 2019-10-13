@@ -1,0 +1,16 @@
+﻿{
+  "Dates": [
+    {
+      "Outlook": [ "Sunny", "Overcast", "Rain" ],
+      "Temperature": [ "Hot", "Mild", "Cool" ],
+      "Humidity": [ "High", "Normal" ],
+      "Wind": [ "Weak", "Strong" ],
+      "Play Tennis": [ "Yes", "No" ]
+    },
+    {
+      "x1": [ "0", "1" ],
+      "x2": [ "0", "1" ],
+      "result": [ "0", "1" ]
+    }
+  ]
+}
