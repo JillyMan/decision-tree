@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MachineLearning.DecisionTree.Logger
+namespace MachineLearning.Core.Logger
 {
     public class Logger : ILogger
     {

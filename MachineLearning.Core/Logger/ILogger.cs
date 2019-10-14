@@ -1,4 +1,4 @@
-﻿namespace MachineLearning.DecisionTree.Logger
+﻿namespace MachineLearning.Core.Logger
 {
     public interface ILogger
     {

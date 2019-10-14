@@ -9,8 +9,8 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 {
 	public class Id3Algorithm : IDecisionTreeBuilder
 	{
-		private int[] _numberOfRange;
-		private int _numberOfClasses;
+		private int[] _numberOfInputsRange;
+		private int _numberOfOuputRange;
 		private readonly Models.DecisionTree _tree;
 
 		public Id3Algorithm(DecisionVariable[] inputs, DecisionVariable outputType)
@@ -22,12 +22,12 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 		private void Init()
 		{
 			var attrLen = _tree.Attributes.Length;
-			_numberOfRange = new int[attrLen];
-			_numberOfClasses = _tree.NumberOfClasses;
+			_numberOfInputsRange = new int[attrLen];
+			_numberOfOuputRange = _tree.NumberOfOuputClasses;
 
-			for (var i = 0; i < _numberOfRange.Length; ++i)
+			for (var i = 0; i < _numberOfInputsRange.Length; ++i)
 			{
-				_numberOfRange[i] = _tree.Attributes[i].RangeLength;
+				_numberOfInputsRange[i] = _tree.Attributes[i].RangeLength;
 			}
 		}
 
@@ -47,7 +47,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 
 		private void Split(DecisionNode root, int[][] inputs, int[] outputs, int[] mappings)
 		{
-			var solveEntropy = Measure.CalcEntropy(outputs, _numberOfClasses);
+			var solveEntropy = Measure.CalcEntropy(outputs, _numberOfOuputRange);
 
 			if (Math.Abs(solveEntropy) < double.Epsilon)
 			{
@@ -65,7 +65,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			for (var i = 0; i < gainScores.Length; ++i)
 			{
 				var realId = mappings[i];
-				gainScores[i] = CalcInformationGain(inputs, outputs, solveEntropy, i, realId);
+				gainScores[i] = InformationGain(inputs, outputs, solveEntropy, i, realId);
 			}
 
 			gainScores.Max(out var maxGainAttrIndex);
@@ -76,7 +76,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			root.AttrName = currentAttribute.Name;
 			root.AttrIndex = realMaxGainIndex;
 
-			var childCount = _numberOfRange[realMaxGainIndex];
+			var childCount = _numberOfInputsRange[realMaxGainIndex];
 			var children = new DecisionNode[childCount];
 			for (var i = 0; i < children.Length; ++i)
 			{
@@ -108,36 +108,44 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			return list.ToArray();
 		}
 
-		private double CalcInformationGain(int[][] inputs, int[] outputs, double solveEntropy, int index, int realId)
+		private double InformationGain(int[][] inputs, int[] outputs, double solveEntropy, int index, int realId)
 		{
 			return solveEntropy - InfoEntropy(inputs, outputs, index, realId);
 		}
 
-		private double InfoEntropy(int[][] attrValues, int[] outputs, int index, int realId)
+		private double InfoEntropy(int[][] inputs, int[] outputs, int index, int realId)
 		{
+			var valueFrequency = GetAttrValueFrequency(inputs, outputs, index, realId);
+
 			var informationEntropy = 0d;
-			var attrRange = _numberOfRange[realId];
-			var outputRange = _numberOfClasses;
+			for (var i = 0; i < valueFrequency.Length; ++i)
+			{
+				var count = valueFrequency[i].Sum(x => x);
+				var e = Measure.EntropyByFreq(valueFrequency[i], count);
+				informationEntropy += (count / (double)inputs.Length) * e;
+			}
+
+			return informationEntropy;
+		}
+
+		private int[][] GetAttrValueFrequency(int[][] inputs, int[] outputs, int attrIndex, int realId)
+		{
+			var attrRange = _numberOfInputsRange[realId];
 
 			var valueFrequency = new int[attrRange][];
 			for (var i = 0; i < valueFrequency.Length; ++i)
 			{
-				valueFrequency[i] = new int[outputRange];
+				valueFrequency[i] = new int[_numberOfOuputRange];
 			}
 
-			for (var i = 0; i < attrValues.Length; ++i)
+			for (var i = 0; i < inputs.Length; ++i)
 			{
-				valueFrequency[attrValues[i][index]][outputs[i]]++;
+				var attrRowIndex = inputs[i][attrIndex];
+				var outputColumnId = outputs[i];
+				valueFrequency[attrRowIndex][outputColumnId]++;
 			}
 
-			for (var i = 0; i < valueFrequency.Length; ++i)
-			{
-				var count = valueFrequency[i].Sum(x => x);
-				var e = Measure.Entropy(valueFrequency[i], count);
-				informationEntropy += (count / (double)attrValues.Length) * e;
-			}
-
-			return informationEntropy;
+			return valueFrequency;
 		}
 
 		private static void SplitLearnSet(

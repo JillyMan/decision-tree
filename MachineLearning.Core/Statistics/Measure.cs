@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MachineLearning.Core.Extensions;
 
 namespace MachineLearning.Core.Statistics
@@ -9,12 +10,18 @@ namespace MachineLearning.Core.Statistics
         {
             if (input.Length == 0) return 0d;
             var inputFreq = input.GetFrequency(numberOfClasses);
-            return Entropy(inputFreq, input.Length);
+            return EntropyByFreq(inputFreq, input.Length);
         }
 
-        public static double Entropy(int[] frequency, int qty)
+		public static double EntropyByFreq(int[] frequency)
+		{
+			var qty = frequency.Sum(x => x);
+			return EntropyByFreq(frequency, qty);
+		}
+
+		public static double EntropyByFreq(int[] frequency, int qty)
         {
-            if (qty == 0) return 0d;
+			if (qty == 0) return 0d;
 
             var result = 0d;
             for (var i = 0; i < frequency.Length; ++i)

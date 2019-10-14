@@ -8,7 +8,7 @@ namespace MachineLearning.DecisionTree.Models
 
 		public int NumerOfInputs => Attributes.Length;
 
-		public int NumberOfClasses => SolveAttribute.RangeLength;
+		public int NumberOfOuputClasses => SolveAttribute.RangeLength;
 
 		public DecisionVariable[] Attributes { get; }
 

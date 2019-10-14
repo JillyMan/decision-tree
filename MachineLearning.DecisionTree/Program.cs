@@ -1,4 +1,5 @@
 ﻿using MachineLearning.Core.Converters;
+using MachineLearning.Core.Logger;
 using MachineLearning.Core.Properties;
 using MachineLearning.DataLayer;
 using MachineLearning.DecisionTree.LearnAlgorithm;
@@ -35,11 +36,15 @@ namespace MachineLearning.DecisionTree
 				},
 				new Codebook(data, metaInfo),
 				new Id3Algorithm(inputInfo, outputInfo),
-				new Logger.Logger()
+				new Logger()
 			);
 
-			service.CheckError();
+			var error = service.CheckError();
+			var result = error ? "Success" : "Fail";
 
+			Console.WriteLine($"Tree learn: {result}");
+
+			#region test
 			//var decision = service.GetDecision(new Dictionary<string, string> {
 			//		{ "Outlook", "Overcast" },
 			//		{ "Temperature", "Hot" },
@@ -53,7 +58,7 @@ namespace MachineLearning.DecisionTree
 			//		{ "x2", "1" },
 			//	}
 			//);
-
+			#endregion
 			Console.ReadKey();
 			return 0;
 		}

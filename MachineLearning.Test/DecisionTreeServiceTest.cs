@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using MachineLearning.Core.Converters;
+using MachineLearning.Core.Logger;
 using MachineLearning.DecisionTree.LearnAlgorithm;
-using MachineLearning.DecisionTree.Logger;
 using MachineLearning.DecisionTree.Models;
 using MachineLearning.DecisionTree.Services;
 using Moq;
