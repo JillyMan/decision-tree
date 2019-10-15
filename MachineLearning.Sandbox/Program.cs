@@ -8,14 +8,13 @@ using System.Collections.Generic;
 
 namespace MachineLearning.Sandbox
 {
-	internal class Program
+	class Program
 	{
-		static Logger Logger = new Logger();
+		static readonly Logger Logger = new Logger();
 
-		private static int Main()
+		static int Main()
 		{
 			DeicionTreeServiceRun();
-
 			return Console.ReadKey().KeyChar;		
 		}
 
@@ -35,14 +34,14 @@ namespace MachineLearning.Sandbox
 			var service = new DecisionTreeService(data, metaInfo, Logger);
 
 			var error = service.CheckError();
-			var result = error ? "Success" : "Fail";
+			var result = error ? Constant.SUCCESS : Constant.FAIL;
 
 			Logger.Info($"Run tree on learn input set: {result}");
 
 			Logger.Info("Test case: ");
 			foreach (var pair in test_case)
 			{
-				Logger.Info($"{pair.Key}: {pair.Key}");
+				Logger.Info($"{pair.Key}: {pair.Value}");
 			}
 
 			var decision = service.GetDecision(test_case);
