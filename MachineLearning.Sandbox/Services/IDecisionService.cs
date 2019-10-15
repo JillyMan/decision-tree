@@ -4,8 +4,10 @@ namespace MachineLearning.DecisionTree.Services
 {
 	public interface IDecisionService
     {
-        string GetDecision(IDictionary<string, string> input);
+		bool CheckError();
 
 		int GetDecision(int[] vector);
+
+        string GetDecision(IDictionary<string, string> input);
 	}
 }

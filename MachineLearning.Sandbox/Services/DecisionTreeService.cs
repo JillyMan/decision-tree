@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace MachineLearning.DecisionTree.Services
 {
-	//todo: pls refactor this class
 	public class TreeInfo
 	{
 		public string[] Inputs { get; set; }
@@ -17,15 +16,12 @@ namespace MachineLearning.DecisionTree.Services
 
 	public class DecisionTreeService : IDecisionService
 	{
-		private int[] _outputs;
-		private int[][] _inputs;
-
-		private Models.DecisionTree _tree;
-
-		private TreeInfo _treeInfo;
 		private readonly ILogger _logger;
 		private readonly ICodebook _codebook;
-		private IDecisionTreeBuilder _treeBuilder;
+		private readonly IDecisionTreeBuilder _treeBuilder;
+
+		private readonly TreeInfo _treeInfo;
+		private readonly Models.DecisionTree _tree;
 
 		public DecisionTreeService(
 			DataTable data,
@@ -34,11 +30,7 @@ namespace MachineLearning.DecisionTree.Services
 		{
 			_logger = logger;
 			_codebook = new Codebook(data, metaInfo);
-			Init(metaInfo);
-		}
 
-		private void Init(IDictionary<string, string[]> metaInfo)
-		{
 			var vars = ParseMetaInfo(metaInfo);
 			var inputInfo = vars.Take(vars.Length - 1).ToArray();
 			var outputInfo = vars.Last();
@@ -49,11 +41,11 @@ namespace MachineLearning.DecisionTree.Services
 				Output = outputInfo.Name
 			};
 
-			_inputs = _codebook.GetArray(_treeInfo.Inputs);
-			_outputs = _codebook.GetArray(_treeInfo.Output);
-			_tree = _treeBuilder.Learn(_inputs, _outputs);
+			var inputs = _codebook.GetArray(_treeInfo.Inputs);
+			var outputs = _codebook.GetArray(_treeInfo.Output);
 
 			_treeBuilder = new Id3Algorithm(inputInfo, outputInfo);
+			_tree = _treeBuilder.Learn(inputs, outputs);
 		}
 
 		public string GetDecision(IDictionary<string, string> input)
@@ -71,6 +63,9 @@ namespace MachineLearning.DecisionTree.Services
 
 		public bool CheckError()
 		{
+			var _inputs = _codebook.GetArray(_treeInfo.Inputs);
+			var _outputs = _codebook.GetArray(_treeInfo.Output);
+
 			if (_inputs == null || _outputs == null) return false;
 
 			var result = true;

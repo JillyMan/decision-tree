@@ -10,8 +10,18 @@ namespace MachineLearning.Sandbox
 {
 	internal class Program
 	{
+		static Logger Logger = new Logger();
+
 		private static int Main()
 		{
+			DeicionTreeServiceRun();
+
+			return Console.ReadKey().KeyChar;		
+		}
+
+		static void DeicionTreeServiceRun()
+		{
+			Logger.Info("Deicision Service Run...");
 			var csvProvider = new FromCsvTableProvider();
 			var jsonProvider = new JsonTableProvider();
 
@@ -22,25 +32,22 @@ namespace MachineLearning.Sandbox
 						.GetData(Resources.TestCaseDecisionTree)
 						.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])));
 
-			var logger = new Logger();
-			var service = new DecisionTreeService(data, metaInfo, logger);
+			var service = new DecisionTreeService(data, metaInfo, Logger);
 
 			var error = service.CheckError();
 			var result = error ? "Success" : "Fail";
 
-			logger.Info($"Tree learn: {result}");
+			Logger.Info($"Run tree on learn input set: {result}");
 
-			logger.Info("Test case: ");
-
+			Logger.Info("Test case: ");
 			foreach (var pair in test_case)
 			{
-				logger.Info($"{pair.Key}: {pair.Key}");
+				Logger.Info($"{pair.Key}: {pair.Key}");
 			}
 
 			var decision = service.GetDecision(test_case);
-			logger.Info($"Result: {decision}");
-
-			return Console.ReadKey().KeyChar;		
+			Logger.Info($"Result: {decision}");
+			Logger.Info("...Deicision Service Finish");
 		}
 	}
 }
