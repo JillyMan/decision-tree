@@ -33,7 +33,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 
 		public Models.DecisionTree Learn(int[][] inputs, int[] outputs)
 		{
-			_tree.Root = new DecisionNode();
+			_tree.Root = new DecisionTreeNode();
 			var mappings = new int[_tree.Attributes.Length];
 
 			for (int i = 0; i < mappings.Length; ++i)
@@ -45,7 +45,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			return _tree;
 		}
 
-		private void Split(DecisionNode root, int[][] inputs, int[] outputs, int[] mappings)
+		private void Split(DecisionTreeNode root, int[][] inputs, int[] outputs, int[] mappings)
 		{
 			var solveEntropy = Measure.CalcEntropy(outputs, _numberOfOuputRange);
 
@@ -53,9 +53,17 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			{
 				if (outputs.Length > 0)
 				{
-					root.Output = outputs[0];
-					root.AttrName = _tree.SolveAttribute.NameRange[root.Output];
+                    var outputIndex = outputs[0];
+                    root.LeafInfo.Index = outputIndex;
+                    root.LeafInfo.Name = _tree.SolveAttribute.NameRange[outputIndex];
 				}
+                else
+                {
+                    /*
+                     * what make if e == 0, and output is empty???
+                     * what we should assign to leaf ?
+                     */
+                }
 
 				return;
 			}
@@ -73,20 +81,23 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 			var newMappings = RecalculateMappings(mappings, maxGainAttrIndex);
 
 			var currentAttribute = _tree.Attributes[realMaxGainIndex];
-			root.AttrName = currentAttribute.Name;
-			root.AttrIndex = realMaxGainIndex;
+            root.AttributeInfo = new NodeInfo()
+            {
+                Index = realMaxGainIndex,
+                Name = currentAttribute.Name,
+            };
 
-			var childCount = _numberOfInputsRange[realMaxGainIndex];
-			var children = new DecisionNode[childCount];
+            var childCount = _numberOfInputsRange[realMaxGainIndex];
+			var children = new DecisionTreeNode[childCount];
 			for (var i = 0; i < children.Length; ++i)
 			{
-				children[i] = new DecisionNode()
+				children[i] = new DecisionTreeNode()
 				{
-					Branch = new Branch
+                    Parent = root,
+					Branch = new NodeInfo
 					{
-						Parent = root,
 						Name = currentAttribute.NameRange[i],
-						Value = i
+						Index = i
 					}
 				};
 

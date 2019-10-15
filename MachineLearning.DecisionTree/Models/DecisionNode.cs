@@ -3,31 +3,33 @@ using System.Linq;
 
 namespace MachineLearning.DecisionTree.Models
 {
-	public struct Branch
-	{
-		public DecisionNode Parent { get; set; }
+	public struct NodeInfo
+    {
+        public int Index;
 
-		public string Name;
+        public string Name { get; set; }
+    }
 
-		public int Value;
-	}
+    public class DecisionTreeNode
+    {
 
-	public class DecisionNode
-	{
-        public string AttrName { get; set; }
+        public NodeInfo Branch;
 
-        public int AttrIndex { get; set; }
-	
-		public Branch Branch { get; set; }
+        public NodeInfo AttributeInfo;
+
+        public NodeInfo LeafInfo;
+
+        public DecisionTreeNode Parent;
 
         public int Output { get; set; }
 
         public bool IsLeaf => Childs.Count == 0;
 
-		public List<DecisionNode> Childs { get; } = new List<DecisionNode>();
+		public List<DecisionTreeNode> Childs { get; } = new List<DecisionTreeNode>();
 
-		public DecisionNode NextNode(int branchValue) =>
-			Childs
-				.FirstOrDefault(e => e.Branch.Value == branchValue);
+        public DecisionTreeNode GetNodeByBranchValue(int branchIndex)
+        {
+            return IsLeaf ? this : Childs.FirstOrDefault(e => e.Branch.Index == branchIndex);
+        }
 	}
 }

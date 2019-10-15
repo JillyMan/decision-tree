@@ -60,7 +60,7 @@ namespace MachineLearning.Test
 			var x21 = new DecisionNode()
 			{
 				AttrIndex = 1,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 0
 				}
@@ -69,7 +69,7 @@ namespace MachineLearning.Test
 			var x22 = new DecisionNode()
 			{
 				AttrIndex = 1,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 1
 				}
@@ -80,7 +80,7 @@ namespace MachineLearning.Test
 			var l00 = new DecisionNode()
 			{
 				Output = 0,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 0
 				}
@@ -89,7 +89,7 @@ namespace MachineLearning.Test
 			var l01 = new DecisionNode()
 			{
 				Output = 1,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 1
 				}
@@ -98,7 +98,7 @@ namespace MachineLearning.Test
 			var l11 = new DecisionNode()
 			{
 				Output = 0,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 1
 				}
@@ -107,7 +107,7 @@ namespace MachineLearning.Test
 			var l10 = new DecisionNode()
 			{
 				Output = 1,
-				Branch = new Branch
+				Branch = new BranchInfo
 				{
 					Value = 0
 				}
