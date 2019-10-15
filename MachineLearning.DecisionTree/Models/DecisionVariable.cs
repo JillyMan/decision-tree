@@ -8,7 +8,7 @@
 
 		public string[] NameRange { get; set; }
 
-		public DecisionVariable(string name, string[] nameRange)
+		public DecisionVariable(string name, params string[] nameRange)
 		{
 			Name = name;
 			NameRange = nameRange;

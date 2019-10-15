@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MachineLearning.BayesianNetwork\MachineLearning.BayesianNetwork.csproj" />
     <ProjectReference Include="..\MachineLearning.Core\MachineLearning.Core.csproj" />
+    <ProjectReference Include="..\MachineLearning.DataLayer\MachineLearning.DataLayer.csproj" />
     <ProjectReference Include="..\MachineLearning.DecisionTree\MachineLearning.DecisionTree.csproj" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ namespace MachineLearning.DecisionTree.Models
 {
 	public class DecisionTree
 	{
-		public DecisionNode Root { get; set; }
+		public DecisionTreeNode Root { get; set; }
 
 		public int NumerOfInputs => Attributes.Length;
 
@@ -25,13 +25,14 @@ namespace MachineLearning.DecisionTree.Models
 			return SearchAnswer(Root, vector);
 		}
 
-        private int SearchAnswer(DecisionNode node, IReadOnlyList<int> vector)
+        private int SearchAnswer(DecisionTreeNode node, IReadOnlyList<int> vector)
         {
             for(;;)
             {
                 if (node.IsLeaf) 
-                    return node.Output;
-                node = node.NextNode(vector[node.AttrIndex]);
+                    return node.LeafInfo.Index;
+				var attributeIndex = node.AttributeInfo.Index;
+				node = node.GetNodeByBranchValue(vector[attributeIndex]);
             }
         }
     }

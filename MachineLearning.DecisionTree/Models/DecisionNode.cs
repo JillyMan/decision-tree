@@ -7,12 +7,11 @@ namespace MachineLearning.DecisionTree.Models
     {
         public int Index;
 
-        public string Name { get; set; }
+		public string Name;
     }
 
     public class DecisionTreeNode
     {
-
         public NodeInfo Branch;
 
         public NodeInfo AttributeInfo;
@@ -20,8 +19,6 @@ namespace MachineLearning.DecisionTree.Models
         public NodeInfo LeafInfo;
 
         public DecisionTreeNode Parent;
-
-        public int Output { get; set; }
 
         public bool IsLeaf => Childs.Count == 0;
 

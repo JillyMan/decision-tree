@@ -22,13 +22,8 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 		private void Init()
 		{
 			var attrLen = _tree.Attributes.Length;
-			_numberOfInputsRange = new int[attrLen];
 			_numberOfOuputRange = _tree.NumberOfOuputClasses;
-
-			for (var i = 0; i < _numberOfInputsRange.Length; ++i)
-			{
-				_numberOfInputsRange[i] = _tree.Attributes[i].RangeLength;
-			}
+			_numberOfInputsRange = _tree.Attributes.Select(x => x.RangeLength).ToArray();
 		}
 
 		public Models.DecisionTree Learn(int[][] inputs, int[] outputs)

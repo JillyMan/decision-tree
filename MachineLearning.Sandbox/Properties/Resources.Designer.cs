@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MachineLearning.Core.Properties {
+namespace MachineLearning.Sandbox.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace MachineLearning.Core.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MachineLearning.DecisionTree.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MachineLearning.Sandbox.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace MachineLearning.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.DecisionTree\Data\data.csv.
+        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\data.csv.
         /// </summary>
         internal static string CsvLearnDataPath {
             get {
@@ -70,7 +70,7 @@ namespace MachineLearning.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.DecisionTree\Data\training_set.json.
+        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\training_set.json.
         /// </summary>
         internal static string JsonLearnDataPath {
             get {
@@ -79,11 +79,20 @@ namespace MachineLearning.Core.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.DecisionTree\Data\metaInfo.json.
+        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\metaInfo.json.
         /// </summary>
         internal static string MetaInfoOfLearnSet {
             get {
                 return ResourceManager.GetString("MetaInfoOfLearnSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\test_case.json.
+        /// </summary>
+        internal static string TestCaseDecisionTree {
+            get {
+                return ResourceManager.GetString("TestCaseDecisionTree", resourceCulture);
             }
         }
     }
