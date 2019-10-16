@@ -11,23 +11,41 @@ namespace MachineLearning.Sandbox
 	class Program
 	{
 		static readonly Logger Logger = new Logger();
+        
+        static readonly FromCsvTableProvider CsvProvider = new FromCsvTableProvider();
 
-		static int Main()
+        static readonly JsonTableProvider JsonProvider = new JsonTableProvider();
+
+        static int Main()
 		{
-			DeicionTreeServiceRun();
-			return Console.ReadKey().KeyChar;		
+            RunSerivce(Resources.CarDataCsv, Resources.CarAttrMetaInfo, "Car Evaluation Service");
+            //DeicionTreeServiceRun();
+            return Console.ReadKey().KeyChar;		
 		}
 
-		static void DeicionTreeServiceRun()
+        static IDecisionService RunSerivce(string dataPath, string metaInfoPath, string nameTest)
+        {
+            Logger.Info($"Start... ({nameTest})");
+            var data = CsvProvider.GetData(dataPath);
+            var metaInfo = JsonProvider.GetData(metaInfoPath);
+
+            var service = new DecisionTreeService(data, metaInfo, Logger);
+            var error = service.CheckError();
+            var result = error ? Constant.SUCCESS : Constant.FAIL;
+            Logger.Info($"Run tree on learn input set: {result}");
+            Logger.Info("End...");
+            Logger.Info("-----------------");
+            return service;
+        }
+
+        static void DeicionTreeServiceRun()
 		{
 			Logger.Info("Deicision Service Run...");
-			var csvProvider = new FromCsvTableProvider();
-			var jsonProvider = new JsonTableProvider();
 
-			var data = csvProvider.GetData(Resources.CsvLearnDataPath);
-			var metaInfo = jsonProvider.GetData(Resources.MetaInfoOfLearnSet);
+			var data = CsvProvider.GetData(Resources.CsvLearnDataPath);
+			var metaInfo = JsonProvider.GetData(Resources.MetaInfoOfLearnSet);
 			var test_case = new Dictionary<string, string>(
-						jsonProvider
+						JsonProvider
 						.GetData(Resources.TestCaseDecisionTree)
 						.Select(x => new KeyValuePair<string, string>(x.Key, x.Value[0])));
 

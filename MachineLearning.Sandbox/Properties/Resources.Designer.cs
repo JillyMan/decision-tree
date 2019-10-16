@@ -61,6 +61,24 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.attr.meta.json.
+        /// </summary>
+        internal static string CarAttrMetaInfo {
+            get {
+                return ResourceManager.GetString("CarAttrMetaInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.data.csv.
+        /// </summary>
+        internal static string CarDataCsv {
+            get {
+                return ResourceManager.GetString("CarDataCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\data.csv.
         /// </summary>
         internal static string CsvLearnDataPath {
