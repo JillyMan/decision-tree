@@ -118,21 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CarAttrMetaInfo" xml:space="preserve">
-    <value>C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.attr.meta.json</value>
+    <value>../../../Data/CarEvaluationDataSet/car.attr.meta.json</value>
   </data>
   <data name="CarDataCsv" xml:space="preserve">
-    <value>C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.data.csv</value>
+    <value>../../../Data/CarEvaluationDataSet/car.data.csv</value>
   </data>
   <data name="CsvLearnDataPath" xml:space="preserve">
-    <value>C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\data.csv</value>
+    <value>..\..\..\Data\DecisionTree\data.csv</value>
   </data>
   <data name="MetaInfoOfLearnSet" xml:space="preserve">
-    <value>C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\metaInfo.json</value>
+    <value>..\..\..\Data\DecisionTree\metaInfo.json</value>
   </data>
   <data name="PlayTennisJsonLearnDataPath" xml:space="preserve">
-    <value>C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\training_set.json</value>
+    <value>..\..\..\Data\DecisionTree\training_set.json</value>
   </data>
   <data name="TestCaseDecisionTree" xml:space="preserve">
-    <value>C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\test_case.json</value>
+    <value>..\..\..\Data\DecisionTree\test_case.json</value>
   </data>
 </root>

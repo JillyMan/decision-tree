@@ -61,7 +61,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.attr.meta.json.
+        ///   Looks up a localized string similar to ../../../Data/CarEvaluationDataSet/car.attr.meta.json.
         /// </summary>
         internal static string CarAttrMetaInfo {
             get {
@@ -70,7 +70,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom_Dubinevich\source\repos\decision-tree\MachineLearning.Sandbox\Data\CarEvaluationDataSet\car.data.csv.
+        ///   Looks up a localized string similar to ../../../Data/CarEvaluationDataSet/car.data.csv.
         /// </summary>
         internal static string CarDataCsv {
             get {
@@ -79,7 +79,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\data.csv.
+        ///   Looks up a localized string similar to ..\..\..\Data\DecisionTree\data.csv.
         /// </summary>
         internal static string CsvLearnDataPath {
             get {
@@ -88,7 +88,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\metaInfo.json.
+        ///   Looks up a localized string similar to ..\..\..\Data\DecisionTree\metaInfo.json.
         /// </summary>
         internal static string MetaInfoOfLearnSet {
             get {
@@ -97,7 +97,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\training_set.json.
+        ///   Looks up a localized string similar to ..\..\..\Data\DecisionTree\training_set.json.
         /// </summary>
         internal static string PlayTennisJsonLearnDataPath {
             get {
@@ -106,7 +106,7 @@ namespace MachineLearning.Sandbox.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C:\Users\Artsiom\Documents\Projects\MachineLearning\MachineLearning.Sandbox\Data\DecisionTree\test_case.json.
+        ///   Looks up a localized string similar to ..\..\..\Data\DecisionTree\test_case.json.
         /// </summary>
         internal static string TestCaseDecisionTree {
             get {

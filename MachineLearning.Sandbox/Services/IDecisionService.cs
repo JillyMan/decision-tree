@@ -9,5 +9,7 @@ namespace MachineLearning.DecisionTree.Services
 		int GetDecision(int[] vector);
 
         string GetDecision(IDictionary<string, string> input);
-	}
+
+        void DumpTree();
+    }
 }

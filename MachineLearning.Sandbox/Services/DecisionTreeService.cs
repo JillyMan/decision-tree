@@ -83,6 +83,37 @@ namespace MachineLearning.DecisionTree.Services
 			return result;
 		}
 
+        public void DumpTree()
+        {
+            var deep = 0;
+            PrintTree(_tree.Root, ref deep);
+        }
+
+        private void PrintTree(DecisionTreeNode root, ref int deep)
+        {
+            ++deep;
+
+            PrintTab(deep);
+            _logger.Log(root.IsLeaf ? $"({root.LeafInfo.Name})" : $"[{root.AttributeInfo.Name}]");
+
+            foreach (var child in root.Childs)
+            {
+                PrintTab(deep);
+                _logger.Log($"{root.AttributeInfo.Name}.{child.Branch.Name}");
+                PrintTree(child, ref deep);
+            }
+
+            --deep;
+
+            void PrintTab(int len)
+            {
+                for (var i = 0; i < len; ++i)
+                {
+                    _logger.Log("\t", false);
+                }
+            }
+        }
+
 		private DecisionVariable[] ParseMetaInfo(IDictionary<string, string[]> metaInfo)
 		{
 			return metaInfo.Select(x => new DecisionVariable(x.Key, x.Value)).ToArray();

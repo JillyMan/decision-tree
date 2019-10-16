@@ -19,7 +19,7 @@ namespace MachineLearning.Sandbox
         static int Main()
 		{
             RunSerivce(Resources.CarDataCsv, Resources.CarAttrMetaInfo, "Car Evaluation Service");
-            //DeicionTreeServiceRun();
+            DeicionTreeServiceRun();
             return Console.ReadKey().KeyChar;		
 		}
 
@@ -35,6 +35,9 @@ namespace MachineLearning.Sandbox
             Logger.Info($"Run tree on learn input set: {result}");
             Logger.Info("End...");
             Logger.Info("-----------------");
+
+            service.DumpTree();
+
             return service;
         }
 
@@ -64,7 +67,9 @@ namespace MachineLearning.Sandbox
 
 			var decision = service.GetDecision(test_case);
 			Logger.Info($"Result: {decision}");
-			Logger.Info("...Deicision Service Finish");
-		}
-	}
+            service.DumpTree();
+
+            Logger.Info("...Deicision Service Finish");
+        }
+    }
 }
