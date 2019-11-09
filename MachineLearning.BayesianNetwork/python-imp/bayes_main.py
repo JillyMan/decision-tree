@@ -1,6 +1,8 @@
 from bayes_data_layer import get_data
-from bayes_render import ui_render
+from bayes_render import ui_render, ui_render_message
 from bayes_core import *
+
+#Plan for tomorow: need recalculate all probability, and check on consistency (i.e Can i'm give answer?)
 
 isRunning = True
 tags = []
@@ -39,18 +41,14 @@ def recalculate_hypotesis(question_info, answer):
         pass
 
 def check_end():
-    isRunning = False
-    pass
+    return True
 
 def bayes_system():
-    while isRunning:
-        recalculate_attr_price()
-        question_info = get_question()
-        answer = ui_render(question_info)
-        recalculate_hypotesis(question_info, answer)
-        check_end()
-
-#bayes_system()
+    while check_end():       
+        prices = recalculate_attr_price()
+        attribute = get_question(prices)       
+        answer = ui_render(attribute)
+#       recalculate_hypotesis(attribute, answer)
 
 def test_prices():
     prices = recalculate_attr_price()
@@ -72,4 +70,5 @@ def unit_test():
     test_prices()
 
 init()
-unit_test()
+bayes_system()
+#unit_test()

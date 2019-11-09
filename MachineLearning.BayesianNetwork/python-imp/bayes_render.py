@@ -1,4 +1,7 @@
-from bayes_core import Boolean, Range, QuestionInfo
+from bayes_core import Boolean, Range
+
+def ui_render_message(message):
+    print(message)
 
 def ui_render(question):
     print("Question:", question.question)

@@ -21,21 +21,17 @@ class Tag:
 class InputType:
     def __init__(self, _type, value):
         self.type = _type
+        self.value = value
 
 class Boolean(InputType):
     def __init__(self, value):
-        InputType.__init__(self, 'bool')
+        InputType.__init__(self, 'bool', value)
 
 class Range(InputType):
     def __init__(self, start, end, value):
         InputType.__init__(self, 'range', value)
         self.start = start
         self.end = end
-
-class QuestionInfo():
-    answer_info = None
-    def __init__(self, question):
-        self.question = question
  
 def get_phe(p, pp, pm):
     return (p * pp) / (p*pp + (1-p)*pm)
