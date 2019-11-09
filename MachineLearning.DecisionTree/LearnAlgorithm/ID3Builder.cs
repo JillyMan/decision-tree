@@ -9,19 +9,13 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
 {
 	public class Id3Algorithm : IDecisionTreeBuilder
 	{
-		private int[] _numberOfInputsRange;
-		private int _numberOfOuputRange;
+		private readonly int _numberOfOuputRange;
+		private readonly int[] _numberOfInputsRange;
 		private readonly Models.DecisionTree _tree;
 
 		public Id3Algorithm(DecisionVariable[] inputs, DecisionVariable outputType)
 		{
 			_tree = new Models.DecisionTree(inputs, outputType);
-			Init();
-		}
-
-		private void Init()
-		{
-			var attrLen = _tree.Attributes.Length;
 			_numberOfOuputRange = _tree.NumberOfOuputClasses;
 			_numberOfInputsRange = _tree.Attributes.Select(x => x.RangeLength).ToArray();
 		}
@@ -57,6 +51,7 @@ namespace MachineLearning.DecisionTree.LearnAlgorithm
                     /*
                      * what make if e == 0, and output is empty???
                      * what we should assign to leaf ?
+					 * and it possible ?
                      */
                 }
 
