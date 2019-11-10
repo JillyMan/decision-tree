@@ -1,8 +1,5 @@
 from bayes_core import *
 
-RangeType = 'Range'
-BinaryType = 'Binary'
-
 def get_data():
     h1 = Hipothesis(0, 'Low acum', 0.1)
     h2 = Hipothesis(1, 'have not oil', 0.05)
@@ -14,7 +11,7 @@ def get_data():
     a3 = Attribute(2, "Otsirela car", "Does car longer stay under rain?", RangeType)
     a4 = Attribute(3, "Tech-service", "How much old car doesn't use service?", RangeType)
     a5 = Attribute(4, "Starter ratates", "Does starter rotate?", RangeType)
-    a6 = Attribute(5, "Car not on", "Auto is on?", BinaryType)
+    a6 = Attribute(5, "Car not on", "Auto doesn't run?", BinaryType)
 
     hipoths = [h1, h2, h3, h4]
     attrs = [a1, a2, a3, a4, a5, a6]

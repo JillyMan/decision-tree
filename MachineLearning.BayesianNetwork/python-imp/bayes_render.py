@@ -1,4 +1,4 @@
-from bayes_core import Boolean, Range
+from bayes_core import Binary, Range
 
 def ui_render_message(message):
     print(message)
@@ -10,24 +10,25 @@ def ui_render(question):
 
 def ui_input_range_type(input_type):
     if input_type == 'Binary':
-        return ui_boolean_input()
+        return ui_binary_input()
     elif input_type == 'Range':
         return ui_range_input()
     else:
         print('Invalid input')
 
 def ui_range_input():
-    start = input('from->')
-    end = input('to->')
-    value = input('value->')
-    return Range(start, end, value)
+    # :) hard code eeee!!!!!
+    # start = input('from->')
+    # end = input('to->')
+    value = input('Input value from [-5, 5] -> ')
+    return Range(-5, 5, value)
 
-def ui_boolean_input():
+def ui_binary_input():
     while True:
         result = input('Yes (1) or No (0) -> ')
         if result == '1':
-            return Boolean(1)
+            return Binary(1)
         elif result == '0':
-            return Boolean(0)
+            return Binary(0)
         else:
             print("Try again")
