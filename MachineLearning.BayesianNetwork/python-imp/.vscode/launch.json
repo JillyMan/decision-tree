@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Bayes recomendation system",
+            "type": "python",
+            "request": "launch",
+            "program": "C:\\Users\\Artsiom\\Documents\\Projects\\MachineLearning\\MachineLearning.BayesianNetwork\\python-imp\\bayes_main.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}

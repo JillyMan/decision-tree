@@ -9,6 +9,7 @@
     <ProjectReference Include="..\MachineLearning.Core\MachineLearning.Core.csproj" />
     <ProjectReference Include="..\MachineLearning.DataLayer\MachineLearning.DataLayer.csproj" />
     <ProjectReference Include="..\MachineLearning.DecisionTree\MachineLearning.DecisionTree.csproj" />
+    <ProjectReference Include="..\MachineLearning.NeuralNetwork\MachineLearning.NeuralNetwork.csproj" />
   </ItemGroup>
 
   <ItemGroup>

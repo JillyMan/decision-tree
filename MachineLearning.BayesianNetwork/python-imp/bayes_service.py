@@ -3,8 +3,6 @@ from bayes_data_layer import get_data, BinaryType, RangeType
 from bayes_render import ui_render, ui_render_message
 
 # Plan for tomorow:
-# - need recalculate all probabilities - OK
-#   - testing0
 # - check on consistency (i.e Can i make answer?)
 
 is_running = True

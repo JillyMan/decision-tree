@@ -6,7 +6,7 @@ namespace MachineLearning.Sandbox
 {
 	public static class Constant
 	{
-		public static string FAIL = "Success";
+		public static string FAIL = "Fail";
 		public static string SUCCESS = "Success";
 	}
 }

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.DataLayer",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.Core", "MachineLearning.Core\MachineLearning.Core.csproj", "{6821CADE-DF56-4C19-A948-CC8D4F10CB61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning.Sandbox", "MachineLearning.Sandbox\MachineLearning.Sandbox.csproj", "{87BA93F3-EE17-4C5E-B348-092D5A02C2BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachineLearning.Sandbox", "MachineLearning.Sandbox\MachineLearning.Sandbox.csproj", "{87BA93F3-EE17-4C5E-B348-092D5A02C2BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineLearning.NeuralNetwork", "MachineLearning.NeuralNetwork\MachineLearning.NeuralNetwork.csproj", "{FA68C72A-82C3-4047-9862-4E1028F796E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{87BA93F3-EE17-4C5E-B348-092D5A02C2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87BA93F3-EE17-4C5E-B348-092D5A02C2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87BA93F3-EE17-4C5E-B348-092D5A02C2BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA68C72A-82C3-4047-9862-4E1028F796E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA68C72A-82C3-4047-9862-4E1028F796E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA68C72A-82C3-4047-9862-4E1028F796E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA68C72A-82C3-4047-9862-4E1028F796E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
