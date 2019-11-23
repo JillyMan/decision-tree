@@ -6,11 +6,11 @@ def get_data():
     h3 = Hipothesis(2, 'break zajiganie', 0.01)
     h4 = Hipothesis(3, 'bad svechi', 0.01)
 
-    a1 = Attribute(0, "On lights", "Lights is on?", BinaryType)
-    a2 = Attribute(1, "Low oil pointer", "Oil pointer is low?", RangeType)
+    a1 = Attribute(0, "On lights", "Is lights  on?", BinaryType)
+    a2 = Attribute(1, "Low oil pointer", "Is oil pointer low?", RangeType)
     a3 = Attribute(2, "Otsirela car", "Does car longer stay under rain?", RangeType)
     a4 = Attribute(3, "Tech-service", "How much old car doesn't use service?", RangeType)
-    a5 = Attribute(4, "Starter ratates", "Does starter rotate?", RangeType)
+    a5 = Attribute(4, "Starter ratates", "Does starter rotates?", RangeType)
     a6 = Attribute(5, "Car not on", "Auto doesn't run?", BinaryType)
 
     hipoths = [h1, h2, h3, h4]

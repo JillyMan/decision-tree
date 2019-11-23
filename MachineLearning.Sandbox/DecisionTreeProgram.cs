@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MachineLearning.Sandbox
 {
-	public class DecisionProgram
+	public class DecisionTreeProgram
 	{
 		static readonly Logger Logger = new Logger();
 		static readonly FromCsvTableProvider CsvProvider = new FromCsvTableProvider();

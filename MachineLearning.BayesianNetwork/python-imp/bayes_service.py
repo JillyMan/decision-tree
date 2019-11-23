@@ -2,8 +2,8 @@ from bayes_core import *
 from bayes_data_layer import get_data, BinaryType, RangeType
 from bayes_render import ui_render, ui_render_message
 
-# Plan for tomorow:
-# - check on consistency (i.e Can i make answer?)
+# Tasks
+# - check on dopystimost
 
 is_running = True
 tags = []

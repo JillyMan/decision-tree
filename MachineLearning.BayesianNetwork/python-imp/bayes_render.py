@@ -17,7 +17,7 @@ def ui_input_range_type(input_type):
         print('Invalid input')
 
 def ui_range_input():
-    # :) hard code eeee!!!!!
+    # hard code !!!!!
     # start = input('from->')
     # end = input('to->')
     value = input('Input value from [-5, 5] -> ')
