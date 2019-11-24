@@ -1,5 +1,5 @@
-﻿using System;
-using MachineLearning.Core.Extensions;
+﻿using MachineLearning.NeuralNetwork.Abstractions;
+using System;
 
 namespace MachineLearning.NeuralNetwork
 {
@@ -7,36 +7,43 @@ namespace MachineLearning.NeuralNetwork
 	{
 		private static readonly Random r = new Random();
 
-		public double[,] Weights { get; }
+		private readonly double[,] _weights;
 
-		private int _inputNeuronCount;
-		private int _outputNeuronCount;
+		public double this[int i, int j]
+		{
+			get => _weights[i, j];
+			set => _weights[i, j] = value;
+		}
+
+		private readonly int _inputNeuronCount;
+		private readonly int _outputNeuronCount;
 
 		public bool WithHelpNeuron { get; }
 
-		public Layer(int inputCount, int outputCount, double minWeight, double maxWeight, bool withHelpNeuron)
+		public Layer(int inputCount, int outputCount)
 		{
-			WithHelpNeuron = withHelpNeuron;
+			_inputNeuronCount = inputCount + 1;
+			_outputNeuronCount = outputCount;
 
-			_inputNeuronCount = inputCount;
-			_outputNeuronCount = withHelpNeuron ? outputCount + 1 : outputCount;
+			_weights = new double[inputCount, outputCount];
 
-
-			Weights = new double[inputCount, outputCount];
-
-			for(int i = 0; i < inputCount; ++i)
+			for (int i = 0; i < inputCount; ++i)
 			{
-				for(int j = 0; j < outputCount; ++j)
+				for (int j = 0; j < outputCount; ++j)
 				{
-					Weights[i, j] = r.NextDouble(minWeight, maxWeight);
+					_weights[i, j] = r.NextDouble();
 				}
 			}
 		}
 
-		public double[] CalcOutputValues(double[] inputs)
+		public double[] CalcOutputValues(double[] inputs, IActivateFunction activateFunc)
 		{
-			if (_inputNeuronCount != inputs?.Length) 
+			if (_inputNeuronCount != inputs?.Length)
 				throw new ArgumentOutOfRangeException();
+
+			var inputsWithHelpNeuron = new double[_inputNeuronCount];
+			inputsWithHelpNeuron[0] = 1d;
+			Array.Copy(inputs, 0, inputsWithHelpNeuron, 1, inputs.Length);
 
 			var result = new double[_outputNeuronCount];
 
@@ -44,7 +51,7 @@ namespace MachineLearning.NeuralNetwork
 			{
 				for (var j = 0; j < _outputNeuronCount; ++j)
 				{
-					result[i] += inputs[i] * Weights[i, j];
+					result[i] += activateFunc.Activate(inputsWithHelpNeuron[i] * _weights[i, j]);
 				}
 			}
 

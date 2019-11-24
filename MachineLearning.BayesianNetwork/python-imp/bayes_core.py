@@ -47,6 +47,12 @@ class Range(InputType):
 def phe_func(p, pp, pm):
     return (p * pp) / (p * pp + (1-p) * pm)
 
+	
+def calc_probs(pp, pm, p):
+    phe = phe_func(p, pp, pm)
+    phne = phe_func(p, 1 - pp, 1 - pm)
+    return (phe, phne)
+
 def lerp(start, end, t): 
     return start + (end - start) * t
 

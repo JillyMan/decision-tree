@@ -16,11 +16,6 @@ def get_attribute(prices):
     used_attribute[not_used[0]] = True
     return attrs[not_used[0]]
 
-def calc_probs(pp, pm, p):
-    phe = phe_func(p, pp, pm)
-    phne = phe_func(p, 1 - pp, 1 - pm)
-    return (phe, phne)
-
 def recalculate_attr_price():
     '''ph = P(H:E), phne = P(H:not E)'''
     prices = {}
@@ -63,6 +58,9 @@ def check_end():
     if all(used for used in used_attribute):
         is_running = False
 
+def check_on_permissibility:
+	return True
+
 def debug_hypothesis(tags):
     d = {}
     for tag in tags:
@@ -74,6 +72,9 @@ def debug_hypothesis(tags):
         print(f'{h[0]} = {h[1]}')
 
 def bayes_run():
+	if not check_on_permissibility():
+		ui_render_message("Sorry Data not permissibility, pls try change their")
+
     while is_running:
         prices = recalculate_attr_price()
         attribute = get_attribute(prices)

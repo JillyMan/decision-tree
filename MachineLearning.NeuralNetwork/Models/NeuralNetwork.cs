@@ -1,49 +1,38 @@
-﻿using MachineLearning.NeuralNetwork.Abstractions;
+﻿using MachineLearning.NeuralNetwork.ActivateFunctions;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MachineLearning.NeuralNetwork
 {
 	public class NeuralNetwork
 	{
-		public IList<Layer> Layers { get; private set; }
-		private IActivateFunction _activateFunction;
+		public IList<Layer> Layers { get; }
+
+		public IActivateFunction ActivateFunction { get; }
 
 		public NeuralNetwork(NetworkSettings settings)
 		{
-			_activateFunction = settings.ActivateFunction;
-			Init(settings);
-		}
+			ActivateFunction = settings.ActivateFunction;
+			Layers = new List<Layer>(settings.Size);
 
-		private void Init(NetworkSettings settings)
-		{
-			Layers = new List<Layer>(settings.Size)
-			{ 
-				new Layer(settings.LayersSize[0],
-					settings.LayersSize[1],
-					settings.NeuronInputInterval.min,
-					settings.NeuronInputInterval.max)
-			};
-
-			for (var i = 1; i < settings.Size; ++i)
+			for (var i = 0; i < settings.Size - 1; ++i)
 			{
 				Layers[i] = new Layer(
-					settings.LayersSize[i], 
-					settings.LayersSize[i-1],
-					settings.NeuronInputInterval.min, 
-					settings.NeuronInputInterval.max);
+					settings.LayersSize[i],
+					settings.LayersSize[i + 1]);
 			}
 		}
 
-		public double[] GetAnswer(double[] inputs)
+		public double[][] Convolution(double[] inputs)
 		{
-			double[] outputs = inputs;
-			foreach (var layer in Layers)
+			var result = new double[Layers.Count][];
+			var currentInputs = inputs;
+
+			for (var i = 0; i < Layers.Count; ++i)
 			{
-				outputs = layer.CalcOutputValues(outputs).Select(x => _activateFunction.Activate(x)).ToArray();
+				result[i] = Layers[i].CalcOutputValues(currentInputs, ActivateFunction);
 			}
 
-			return outputs;
+			return result;
 		}
 	}
 }

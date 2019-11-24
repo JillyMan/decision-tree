@@ -15,11 +15,12 @@ namespace MachineLearning.Sandbox
 
 		public static void Run()
 		{
-			RunSerivce(Resources.CarDataCsv, Resources.CarAttrMetaInfo, "Car Evaluation Service");
-			DeicionTreeServiceRun();
+			var program = new DecisionTreeProgram();
+			program.RunSerivce(Resources.CarDataCsv, Resources.CarAttrMetaInfo, "Car Evaluation Service");
+			program.DeicionTreeServiceRun();
 		}
 
-		static void RunSerivce(string dataPath, string metaInfoPath, string nameTest)
+		public void RunSerivce(string dataPath, string metaInfoPath, string nameTest)
 		{
 			Logger.Info($"Start... ({nameTest})");
 			var data = CsvProvider.GetData(dataPath);
@@ -35,7 +36,7 @@ namespace MachineLearning.Sandbox
 			service.DumpTree();
 		}
 
-		static void DeicionTreeServiceRun()
+		public void DeicionTreeServiceRun()
 		{
 			Logger.Info("Deicision Service Run...");
 

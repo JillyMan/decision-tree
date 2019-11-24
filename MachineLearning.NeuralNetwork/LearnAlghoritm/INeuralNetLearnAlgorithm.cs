@@ -1,7 +1,9 @@
-﻿namespace MachineLearning.NeuralNetwork.LearnAlghoritm
+﻿using System.Collections.Generic;
+
+namespace MachineLearning.NeuralNetwork.LearnAlghoritm
 {
 	public interface INeuralNetLearnAlgorithm
 	{
-		void Learn(NeuralNetwork network);
+		void Learn(ICollection<TrainingSet> trainingSet);
 	}
 }
