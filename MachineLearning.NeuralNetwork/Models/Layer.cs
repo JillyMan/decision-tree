@@ -1,4 +1,4 @@
-﻿using MachineLearning.NeuralNetwork.Abstractions;
+﻿using MachineLearning.NeuralNetwork.ActivateFunctions;
 using System;
 
 namespace MachineLearning.NeuralNetwork
