@@ -16,12 +16,15 @@ namespace MachineLearning.NeuralNetwork.LearnAlghoritm
 			_activateFunction = _network.ActivateFunction;
 		}
 
-		public void Learn(ICollection<TrainingSet> trainingSet)
+		public void Learn(ICollection<TrainingSet> trainingSet, int epoh)
 		{
-			foreach (var set in trainingSet)
+			while(--epoh > 0)
 			{
-				var neuronValues = _network.Convolution(set.Inputs);
-				CorrectWeight(_network, neuronValues, set.Ouputs);
+				foreach (var set in trainingSet)
+				{
+					var neuronValues = _network.Convolution(set.Inputs);
+					CorrectWeight(_network, neuronValues, set.Ouputs);
+				}
 			}
 		}
 

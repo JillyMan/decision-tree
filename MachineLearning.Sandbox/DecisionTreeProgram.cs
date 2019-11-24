@@ -11,7 +11,7 @@ namespace MachineLearning.Sandbox
 	{
 		static readonly Logger Logger = new Logger();
 		static readonly FromCsvTableProvider CsvProvider = new FromCsvTableProvider();
-		static readonly JsonTableProvider JsonProvider = new JsonTableProvider();
+		static readonly JsonProvider JsonProvider = new JsonProvider();
 
 		public static void Run()
 		{

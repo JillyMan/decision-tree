@@ -29,7 +29,8 @@ namespace MachineLearning.NeuralNetwork
 
 			for (var i = 0; i < Layers.Count; ++i)
 			{
-				result[i] = Layers[i].CalcOutputValues(currentInputs, ActivateFunction);
+				currentInputs = result[i] = Layers[i]
+					.CalcOutputValues(currentInputs, ActivateFunction);
 			}
 
 			return result;

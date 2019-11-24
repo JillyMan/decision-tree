@@ -6,20 +6,12 @@ namespace MachineLearning.Core.Logger
     {
         public void Info(string message, bool newLine = true)
         {
-            var info = Format($"Info: {message}");
             Log(message, newLine);
-        }
+		}
 
-        public void Log(string message, bool newLine = true)
+		public void Log(string message, bool newLine = true)
         {
-            if (newLine)
-            {
-                Console.WriteLine(message);
-            }
-            else
-            {
-                Console.Write(message);
-            }
+            Console.Write($"{message + (newLine ? '\n' : ' ')}");
         }
 
         private static string Format(string message)

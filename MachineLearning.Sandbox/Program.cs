@@ -8,10 +8,11 @@ namespace MachineLearning.Sandbox
 	{
 		static readonly Logger Logger = new Logger();
 		static readonly FromCsvTableProvider CsvProvider = new FromCsvTableProvider();
-		static readonly JsonTableProvider JsonProvider = new JsonTableProvider();
+		static readonly JsonProvider JsonProvider = new JsonProvider();
 
 		static int Main()
 		{
+			NeuronNetworkProgram.Run();
 			return Console.ReadKey().KeyChar;
 		}
 	}
