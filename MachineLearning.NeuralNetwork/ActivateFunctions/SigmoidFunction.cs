@@ -11,7 +11,7 @@ namespace MachineLearning.NeuralNetwork.ActivateFunctions
 
 		public double Differentiation(double value)
 		{
-			double fdx = Activate(value);
+			var fdx = Activate(value);
 			return fdx * (1 - fdx);
 		}
 	}

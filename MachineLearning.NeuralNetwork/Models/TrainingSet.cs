@@ -1,8 +1,8 @@
-﻿namespace MachineLearning.NeuralNetwork.LearnAlghoritm
+﻿namespace MachineLearning.NeuralNetwork.Models
 {
 	public class TrainingSet
 	{
 		public double[] Inputs;
-		public double[] Ouputs;
+		public double[] Outputs;
 	}
 }

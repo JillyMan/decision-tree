@@ -5,8 +5,9 @@ using MachineLearning.NeuralNetwork;
 using MachineLearning.NeuralNetwork.ActivateFunctions;
 using MachineLearning.NeuralNetwork.LearnAlghoritm;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
+using MachineLearning.NeuralNetwork.Models;
+using MachineLearning.NeuralNetwork.LearnAlgorithm;
 
 namespace MachineLearning.Sandbox
 {
@@ -18,7 +19,7 @@ namespace MachineLearning.Sandbox
 
 		public static void Run()
 		{
-			var network = new NeuralNetwork.NeuralNetwork(
+			var network = new NeuralNetwork.Models.NeuralNetwork(
 				new NetworkSettings(
 					new SigmoidFunction(), 
 					2, 2, 1)
@@ -38,22 +39,22 @@ namespace MachineLearning.Sandbox
 				new TrainingSet()
 				{
 					Inputs = new [] { 1d, 0d },
-					Ouputs = new [] { 1d }
+					Outputs = new [] { 1d }
 				},
 				new TrainingSet()
 				{
 					Inputs = new [] { 0d, 1d },
-					Ouputs = new [] { 1d }
+					Outputs = new [] { 1d }
 				},
 				new TrainingSet()
 				{
 					Inputs = new [] { 1d, 1d },
-					Ouputs = new [] { 0d }
+					Outputs = new [] { 0d }
 				},
 				new TrainingSet()
 				{
 					Inputs = new [] { 0d, 0d },
-					Ouputs = new [] { 0d }
+					Outputs = new [] { 0d }
 				}
 			};
 		}

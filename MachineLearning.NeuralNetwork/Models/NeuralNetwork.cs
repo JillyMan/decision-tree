@@ -1,7 +1,7 @@
 ﻿using MachineLearning.NeuralNetwork.ActivateFunctions;
 using System.Collections.Generic;
 
-namespace MachineLearning.NeuralNetwork
+namespace MachineLearning.NeuralNetwork.Models
 {
 	public class NeuralNetwork
 	{

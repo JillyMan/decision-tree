@@ -1,6 +1,6 @@
 ﻿using MachineLearning.NeuralNetwork.ActivateFunctions;
 
-namespace MachineLearning.NeuralNetwork
+namespace MachineLearning.NeuralNetwork.Models
 {
 	public class NetworkSettings
 	{
