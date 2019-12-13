@@ -39,10 +39,9 @@ class Range(InputType):
         self.end = int(end)
 
     def normalize(self):
-        s = 0
-        e = abs(self.start) + abs(self.end)
-        v = abs(self.start) + self.value
-        return v / (s + e)
+        l = self.end - self.start
+        v = self.value - self.start
+        return v / l
 
 def phe_func(p, pp, pm):
     return (p * pp) / (p * pp + (1-p) * pm)

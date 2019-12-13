@@ -31,10 +31,11 @@ def recalculate_attr_price():
         prices[attr_id] += abs(phe - phne)
     return prices
 
-#----Fucking copy paste------------
+# ----copy paste------------
+
 def recalculate_hipothesis_binary(tags, r):
     for tag in tags:
-        hipothesis = tag.hipothesis       
+        hipothesis = tag.hipothesis
         (phe, phne) = calc_probs(tag.pp, tag.pm, hipothesis.p)
         hipothesis.p = interpolate_result_binary(phne, phe, r)
 
@@ -43,7 +44,7 @@ def recalculate_hipothesis_range(tags, r):
         hipothesis = tag.hipothesis
         (phe, phne) = calc_probs(tag.pp, tag.pm, hipothesis.p)
         hipothesis.p = interpolate_result_clamp01(phne, hipothesis.p, phe, r)
-#------------
+# ------------
 
 def recalculate_hypothesis(attribute_id, answer):
     filtered_tags = filter(lambda x: x.attribute.id == attribute_id, tags)
@@ -54,11 +55,12 @@ def recalculate_hypothesis(attribute_id, answer):
     else:
         raise NotImplementedError('Invalid answer type')
 
+
 def check_end():
     if all(used for used in used_attribute):
         is_running = False
 
-def check_on_permissibility:
+def check_on_permissibility():
 	return True
 
 def debug_hypothesis(tags):
